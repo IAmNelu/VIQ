@@ -10,5 +10,5 @@
 ###Quartieri
 
 - andamento temporale
-- tipoogia sanzione(diagramma a torta)
+- tipologia sanzione(diagramma a torta)
 - tipologia verbale

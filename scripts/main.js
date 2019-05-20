@@ -24,7 +24,7 @@ function writeHeader(){
     return row;
 }
 /* READING FUNCTION AND ASYNCHRONOUS REQUEST */
-///////////////////////////////////////////////
+//////////////////////////////////////////////
 function readAsync(){
     loadASync('data.json', json =>{
         data = JSON.parse(json);

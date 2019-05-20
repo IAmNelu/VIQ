@@ -22,6 +22,30 @@ function displayContents(contents) {
 document.getElementById('file-input')
     .addEventListener('change', readFileR, false);
 
+function readAsync(){
+    loadASync('./PythonScripts/VRC2017_gen_giu.csv', csv =>{
+        console.log(csv);
+    });
+}
+
+function loadASync(url,success){
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET",url,true);
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4)
+            if(okStatus(xhr.status)){
+                success(xhr.responseText);
+                console.log("Qui");
+            }else{
+                console.error("Request failed : " + url);
+            }
+    };
+    xhr.send();
+}
+
+function okStatus(s){
+    return [200,304].indexOf(s) >= 0;
+}
 
 function readFile(fileCSV){
     let rows = fileCSV.split(/[\n\r]/);

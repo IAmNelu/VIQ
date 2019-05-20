@@ -23,8 +23,10 @@ document.getElementById('file-input')
     .addEventListener('change', readFileR, false);
 
 function readAsync(){
-    loadASync('./PythonScripts/VRC2017_gen_giu.csv', csv =>{
-        console.log(csv);
+    loadASync('./PythonScripts/result.json', json =>{
+        let data = JSON.parse(json);
+        console.log(data[5308]["Via 1"]);
+        console.log(data)
     });
 }
 

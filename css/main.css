@@ -20,3 +20,7 @@
     background-color: #4CAF50;
     color: white;
 }
+.wrapper_map {
+    width: auto;
+    margin: 0 auto;
+}

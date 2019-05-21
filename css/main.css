@@ -29,3 +29,7 @@
     stroke-width: 2px;
     fill: dodgerblue;
 }
+.text_map{
+    fill: black;
+    font: bold 21px sans-serif;
+}

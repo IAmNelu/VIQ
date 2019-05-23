@@ -18,6 +18,7 @@ class Quartiere{
 
 }
 
+
 let quartieri;
 quartieri = [
     new Quartiere('Cenisia Cit Turin'),

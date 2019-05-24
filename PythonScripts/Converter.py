@@ -10,22 +10,14 @@ if len(sys.argv) != 3:
 path = sys.argv[1]
 name = sys.argv[2]
 
-print('Se si desidera appendere ad un file esistende digitare 1 altrimenti premere INVIO')
-saveType = input()
-if saveType == '1':
-    saveType = 'a'
-else:
-    saveType = 'w'
-
 with open(path) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=';')
     line_count = 0
     headers = []
     arrays = []
-    single_line_data = {}
     data = []
-
     for row in csv_reader:
+        single_line_data = {}
         if line_count == 0:
             for element in row:
                 headers.append(element)
@@ -36,7 +28,8 @@ with open(path) as csv_file:
             data.append(single_line_data)
             line_count += 1
     json_data = json.dumps(data)
-    with open(name, saveType) as outfile:
+    with open(name, 'w') as outfile:
         json.dump(data, outfile)
-    print(f'Processed {line_count} lines.')
+    print('Processed ' + str(line_count) + ' lines.')
+
 

@@ -4,7 +4,7 @@
 
 - classifica quartieri malfamati 
 - tipoogia sanzione(diagramma a torta)
-- tipologia verbale
+- tipologia verbale(chi lo ha emesso)
 - andamento temporale
 
 ###Quartieri

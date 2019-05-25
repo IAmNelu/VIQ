@@ -18,7 +18,6 @@ class Quartiere{
 
 }
 
-
 let quartieri;
 quartieri = [
     new Quartiere('Cenisia Cit Turin'),
@@ -118,7 +117,9 @@ function readAsync(){
             row += writeRow(i);
         }
         appendHTML('content', row);
-
+        // PlotTypeSanction(data);
+        // PlotTimeSanction(data);
+        // PlotTypeReport(data);
     });
 }
 
@@ -139,4 +140,83 @@ function loadASync(url,success){
 function okStatus(s){
     return [200,304].indexOf(s) >= 0;
 }
+
+
+function PlotTypeSanction(data){
+
+    let administrative=0;
+    let tributary=0;
+
+    for (let i = 0; i < data.length; i++){
+        if(data[i]["Tipo Sanzione"]=="Amministrativa")
+          administrative++;
+
+        if(data[i]["Tipo Sanzione"]=="Tributaria")
+           tributary++;
+    }
+    console.log(administrative);
+    console.log(tributary);
+
+    //plot
+}
+
+function PlotTimeSanction(data) {
+
+    let  months= new Array();
+    let j,i,m,g;
+
+    for(j=0;j<12;j++)
+    {
+        months[j]= new Array();
+        for(i=0;i<31;i++)
+            months[j][i]=0;
+    }
+
+    for(i=0;i<data.length;i++)
+    {
+      m=data[i]["Mese Accertamento"]-1;
+      g=data[i]["Giorno Accertamento"]-1;
+      months[m][g]++;
+    }
+
+    //plot
+}
+
+function PlotTypeReport(data)
+{
+    let i,uffici=0,questura=0,polizia=0,ministero=0,arpa=0,finanza=0,asl=0,carabinieri=0,citt_torino=0;
+
+    for(i=0;i<data.length;i++)
+    {
+        if(data[i]["Tipologia Verbale"]=="POLIZIA MUNICIPALE")
+            polizia++;
+
+        if(data[i]["Tipologia Verbale"]=="QUESTURA")
+            questura++;
+
+        if(data[i]["Tipologia Verbale"]=="GUARDIA DI FINANZA")
+            finanza++;
+
+        if(data[i]["Tipologia Verbale"]=="CARABINIERI")
+            carabinieri++;
+
+        if(data[i]["Tipologia Verbale"]=="UFF. LAVORI PUBBLICI")
+            uffici++;
+
+        if(data[i]["Tipologia Verbale"]=="A.S.L.")
+            asl++;
+
+        if(data[i]["Tipologia Verbale"]=="A.R.P.A.")
+            arpa++;
+
+        if(data[i]["Tipologia Verbale"]=="MIN. INTERNO")
+            ministero++;
+
+        if(data[i]["Tipologia Verbale"]=="CITTA METROP.TORINO")
+            citt_torino++;
+    }
+
+    //plot
+}
+
 ///////////////////////////////////////////////

@@ -142,28 +142,58 @@ function okStatus(s){
 }
 
 
-function PlotTypeSanction(data){
+function PlotTypeSanction(data,div,quartiere){
 
     let administrative=0;
     let tributary=0;
 
-    for (let i = 0; i < data.length; i++){
+    if(div===undefined)
+    {
+        console.log("manca il div");
+        return;
+    }
+    if(quartiere===undefined)
+    {
+        for (let i = 0; i < data.length; i++){
         if(data[i]["Tipo Sanzione"]=="Amministrativa")
-          administrative++;
+                administrative++;
 
         if(data[i]["Tipo Sanzione"]=="Tributaria")
-           tributary++;
+                tributary++;
+        }
     }
-    console.log(administrative);
-    console.log(tributary);
+    else
+    {
+        for (let i = 0; i < data.length; i++){
+        if((data[i]["Tipo Sanzione"]=="Amministrativa")&&(data[i]["Quartiere"]==quartiere))
+            administrative++;
 
-    //plot
+        if((data[i]["Tipo Sanzione"]=="Tributaria")&&(data[i]["Quartiere"]==quartiere))
+            tributary++;
+        }
+    }
+    var value=[{ values:[administrative,tributary],
+                 labels:['Amministrativa','Tributaria'],
+                  type : 'pie' }];
+    var layout={height: 300,
+                 width: 300};
+
+    //  console.log(administrative);
+  //  console.log(tributary);
+
+    Plotly.newPlot(div,value,layout);
 }
 
-function PlotTimeSanction(data) {
+function PlotTimeSanction(data,div,quartiere) {
 
     let  months= new Array();
     let j,i,m,g;
+
+    if(div===undefined)
+    {
+        console.log("manca il div");
+        return;
+    }
 
     for(j=0;j<12;j++)
     {
@@ -172,14 +202,32 @@ function PlotTimeSanction(data) {
             months[j][i]=0;
     }
 
-    for(i=0;i<data.length;i++)
+    if(quartiere===undefined)
     {
-      m=data[i]["Mese Accertamento"]-1;
-      g=data[i]["Giorno Accertamento"]-1;
-      months[m][g]++;
+        for(i=0;i<data.length;i++)
+        {
+        m=data[i]["Mese Accertamento"]-1;
+        g=data[i]["Giorno Accertamento"]-1;
+        months[m][g]++;
+        }
     }
+    else
+    {
+        for(i=0;i<data.length;i++)
+        {
+        if(data[i]["Quartiere"]==quartiere)
+        {
+        m=data[i]["Mese Accertamento"]-1;
+        g=data[i]["Giorno Accertamento"]-1;
+        months[m][g]++;
+        }
+        }
+    }
+    var trace={};
+    var layout={};
+  //  console.log(months);
 
-    //plot
+    Plotly.plot(div,trace,layout);
 }
 
 function PlotTypeReport(data)
@@ -216,6 +264,7 @@ function PlotTypeReport(data)
             citt_torino++;
     }
 
+    console.log(asl)
     //plot
 }
 

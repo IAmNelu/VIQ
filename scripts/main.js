@@ -108,7 +108,7 @@ function writeHeader(){
 /* READING FUNCTION AND ASYNCHRONOUS REQUEST */
 ///////////////////////////////////////////////
 function readAsync(){
-    loadASync('result_min.json', json =>{
+    loadASync('data_full.json', json =>{
         data = JSON.parse(json);
         let item = data[0];
         keys = Object.keys(item);

@@ -4,7 +4,7 @@ let keys;
 class Quartiere{
     constructor(nome){
         this.nome = nome;
-        this.CAP = []
+        this.CAP = [];
         this.rows = [];
         this.numeroInfrazioni = 0;
     }
@@ -24,7 +24,7 @@ quartieri = [
     new Quartiere('San Paolo'),
     new Quartiere('Villaretto Falchera Rebaudengo'),
     new Quartiere('Madonna di Campagna'),
-    new Quartiere('Borgo Vittoria'), //stesso CAP di Madonna 10147 e 10148
+    new Quartiere('Borgo Vittoria'),
     new Quartiere('Barriera di Milano'),
     new Quartiere('Regio Parco Bertola'),
     new Quartiere('Vallette Lucento'),
@@ -52,7 +52,7 @@ quartieri[3].addCAP('10148'); //Madonna di Campagna
 quartieri[3].addCAP('10149'); //Madonna di Campagna
 quartieri[4].addCAP('10147'); //Borgo Vittoria
 quartieri[4].addCAP('10148'); //Borgo Vittoria
-quartieri[5].addCAP('10154'); //Barriera di Milano/
+quartieri[5].addCAP('10154'); //Barriera di Milano
 quartieri[5].addCAP('10155'); //Barriera di Milano
 quartieri[6].addCAP('10154'); //Regio Parco Bertola
 quartieri[7].addCAP('10151'); //Vallette Lucento
@@ -140,7 +140,7 @@ function loadASync(url,success){
 function okStatus(s){
     return [200,304].indexOf(s) >= 0;
 }
-
+///////////////////////////////////////////////
 
 function PlotTypeSanction(data,div,quartiere){
 
@@ -268,4 +268,3 @@ function PlotTypeReport(data)
     //plot
 }
 
-///////////////////////////////////////////////

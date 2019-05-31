@@ -36,9 +36,9 @@ function readAsync(){
             row += writeRow(i);
         }
         appendHTML('content', row);
-        // PlotTypeSanction(data);
-        // PlotTimeSanction(data);
-        // PlotTypeReport(data);
+       // PlotTypeSanction(data,"qui");
+       // PlotTimeSanction(data,"qui");
+
     });
 }
 
@@ -91,13 +91,14 @@ function PlotTypeSanction(data,div,quartiere){
             tributary++;
         }
     }
+
     var value=[{ values:[administrative,tributary],
                  labels:['Amministrativa','Tributaria'],
                  type : 'pie',
                  name: 'Starry Night',
                  marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
-    var layout={height: 300,
-                 width: 300};
+    var layout={height: 500,
+                 width: 500};
 
     Plotly.newPlot(div,value,layout);
 }
@@ -107,6 +108,7 @@ function PlotTimeSanction(data,div,quartiere) {
     let  months = [];
     let j,i,m,g,tot;
 
+    console.log(data);
     if(div===undefined)
     {
         console.log("manca il div");
@@ -122,11 +124,12 @@ function PlotTimeSanction(data,div,quartiere) {
 
     if(quartiere===undefined)
     {
+        console.log("quartiere non definito");
         for(i=0;i<data.length;i++)
         {
         m=data[i]["Mese Accertamento"]-1;
         g=data[i]["Giorno Accertamento"]-1;
-        months[m][g]++;
+        months[m][g] += parseInt(data[i]["Numero Verbali"]);
         }
     }
     else
@@ -137,22 +140,23 @@ function PlotTimeSanction(data,div,quartiere) {
         {
         m=data[i]["Mese Accertamento"]-1;
         g=data[i]["Giorno Accertamento"]-1;
-        months[m][g]++;
+        months[m][g] += parseInt(data[i]["Numero Verbali"]);
         }
         }
     }
 
-    var trace={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+    var value={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                 y:[],
-                type:"bar",
-                marker: { color: "DodgerBlue",
-                          line:{ color:"purple",
-                                  width: 2, }}};
-    var layout={title:quartiere,
+                type:'bar',
+                orientation:"v",
+                marker: { color: "DodgerBlue",}};
+    var layout={title:"Anno: 2017",
+                margin: {l: 45, r:20, b: 50, t:60},
                 width:500,
                 height:400,
                 xaxis: { title: "Mese"},
-                yaxis: { title: "N° Infrazioni"} };
+               yaxis: { title: "N° Infrazioni"}
+    };
 
     for(m=0;m<12;m++)
     {
@@ -161,10 +165,10 @@ function PlotTimeSanction(data,div,quartiere) {
         {
             tot=tot+months[m][g];
         }
-        trace.y.push(tot);
+        value.y.push(tot);
     }
 
-    Plotly.newPlot(div,trace,layout);
+    Plotly.newPlot(div,[value],layout);
 }
 
 

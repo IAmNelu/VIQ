@@ -24,7 +24,7 @@
     width: 60%;
     margin: 0 auto;
 }
-.quartiere{
+polygon{
     stroke: black;
     stroke-width: 2px;
     fill: dodgerblue;

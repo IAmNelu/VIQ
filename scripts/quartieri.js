@@ -6,12 +6,13 @@ class Quartiere{
         this.numeroInfrazioni = 0;
     }
 
-    getNome(){ return this.nome}
-    getCAP() { return this.CAP}
+    getNome(){ return this.nome;}
+    getCAP() { return this.CAP;}
+    getNumberReati(){ return this.numeroInfrazioni;}
     addCAP (CAP) { this.CAP.push(CAP)}
-    addReato(reato){ this.reati.push(reato); }
-    getNumberReati() { return this.reati.length; }
-    addInfrazione() { this.numeroInfrazioni++; }
+    addReato(reato){ this.reati.push(reato);}
+    getNumberReati() { return this.reati.length;}
+    addInfrazione() { this.numeroInfrazioni++;}
 
 }
 
@@ -41,6 +42,7 @@ quartieri = [
     new Quartiere('Nizza'),
     new Quartiere('Mirafiori Sud')
 ];
+quartieri[0].addCAP('10138'); // Cenisia Cit Turin
 quartieri[0].addCAP('10139'); // Cenisia Cit Turin
 quartieri[1].addCAP('10141' ); //San Paolo
 quartieri[2].addCAP('10156'); //Villaretto
@@ -55,14 +57,20 @@ quartieri[6].addCAP('10154'); //Regio Parco Bertola
 quartieri[7].addCAP('10151'); //Vallette Lucento
 quartieri[8].addCAP('10146'); //Parella
 quartieri[9].addCAP('10144'); //San Donato Campidoglio
+quartieri[9].addCAP('10143'); //San Donato Campidoglio
+quartieri[9].addCAP('10145'); //San Donato Campidoglio
 quartieri[10].addCAP('10151'); //Aurora
 quartieri[10].addCAP('10152'); //Aurora
 quartieri[11].addCAP('10132'); //Madonna del Pilone
+quartieri[12].addCAP('10142'); //Pozzo Strada
 quartieri[12].addCAP('10139'); //Pozzo Strada
 quartieri[12].addCAP('10140'); //Pozzo Strada
 quartieri[12].addCAP('10141'); //Pozzo Strada
-quartieri[13].addCAP('10070'); //Centro
+quartieri[13].addCAP('10121'); //Centro
+quartieri[13].addCAP('10122'); //Centro
+quartieri[13].addCAP('10123'); //Centro
 quartieri[14].addCAP('10124'); //Vanchiglia
+quartieri[14].addCAP('10153'); //Vanchiglia
 quartieri[15].addCAP('10128'); //Crocetta
 quartieri[15].addCAP('10129'); //Crocetta
 quartieri[16].addCAP('10125'); //San Salvario
@@ -72,6 +80,7 @@ quartieri[17].addCAP('10133'); //Cavoretto
 quartieri[18].addCAP('10135'); // Mirafiori Nord
 quartieri[18].addCAP('10136'); // Mirafiori Nord
 quartieri[18].addCAP('10137'); // Mirafiori Nord
+quartieri[19].addCAP('10134'); //Santa Rita
 quartieri[19].addCAP('10136'); //Santa Rita
 quartieri[19].addCAP('10137'); //Santa Rita
 quartieri[20].addCAP('10126'); //Lingotto
@@ -85,11 +94,11 @@ function readQuartieri(){
 }
 
 function putData(json){
-    data = JSON.parse(json);
+    let data = JSON.parse(json);
     for(let i = 0; i < data.length; i++){
         let CAPfile = data[i]["CAP"];
         for(let j = 0; j < quartieri.length ; j++){
-            Quartiere = quartieri[j];
+            let Quartiere = quartieri[j];
             CAPquartiere = Quartiere.getCAP();
             if(CAPquartiere.includes(CAPfile)){
                 Quartiere.addReato(data[i]);
@@ -100,4 +109,5 @@ function putData(json){
 }
 
 readQuartieri();
+console.log(quartieri);
 /////////////////////////////////////////////

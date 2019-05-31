@@ -93,20 +93,19 @@ function PlotTypeSanction(data,div,quartiere){
     }
     var value=[{ values:[administrative,tributary],
                  labels:['Amministrativa','Tributaria'],
-                  type : 'pie' }];
+                 type : 'pie',
+                 name: 'Starry Night',
+                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
     var layout={height: 300,
                  width: 300};
-
-    //  console.log(administrative);
-  //  console.log(tributary);
 
     Plotly.newPlot(div,value,layout);
 }
 
 function PlotTimeSanction(data,div,quartiere) {
 
-    let  months= new Array();
-    let j,i,m,g;
+    let  months = [];
+    let j,i,m,g,tot;
 
     if(div===undefined)
     {
@@ -116,7 +115,7 @@ function PlotTimeSanction(data,div,quartiere) {
 
     for(j=0;j<12;j++)
     {
-        months[j]= new Array();
+        months[j]=[];
         for(i=0;i<31;i++)
             months[j][i]=0;
     }
@@ -142,48 +141,30 @@ function PlotTimeSanction(data,div,quartiere) {
         }
         }
     }
-    var trace={};
-    var layout={};
-  //  console.log(months);
 
-    Plotly.plot(div,trace,layout);
-}
+    var trace={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+                y:[],
+                type:"bar",
+                marker: { color: "DodgerBlue",
+                          line:{ color:"purple",
+                                  width: 2, }}};
+    var layout={title:quartiere,
+                width:500,
+                height:400,
+                xaxis: { title: "Mese"},
+                yaxis: { title: "N° Infrazioni"} };
 
-function PlotTypeReport(data)
-{
-    let i,uffici=0,questura=0,polizia=0,ministero=0,arpa=0,finanza=0,asl=0,carabinieri=0,citt_torino=0;
-
-    for(i=0;i<data.length;i++)
+    for(m=0;m<12;m++)
     {
-        if(data[i]["Tipologia Verbale"]=="POLIZIA MUNICIPALE")
-            polizia++;
-
-        if(data[i]["Tipologia Verbale"]=="QUESTURA")
-            questura++;
-
-        if(data[i]["Tipologia Verbale"]=="GUARDIA DI FINANZA")
-            finanza++;
-
-        if(data[i]["Tipologia Verbale"]=="CARABINIERI")
-            carabinieri++;
-
-        if(data[i]["Tipologia Verbale"]=="UFF. LAVORI PUBBLICI")
-            uffici++;
-
-        if(data[i]["Tipologia Verbale"]=="A.S.L.")
-            asl++;
-
-        if(data[i]["Tipologia Verbale"]=="A.R.P.A.")
-            arpa++;
-
-        if(data[i]["Tipologia Verbale"]=="MIN. INTERNO")
-            ministero++;
-
-        if(data[i]["Tipologia Verbale"]=="CITTA METROP.TORINO")
-            citt_torino++;
+        tot=0;
+        for(g=0;g<31;g++)
+        {
+            tot=tot+months[m][g];
+        }
+        trace.y.push(tot);
     }
 
-    console.log(asl)
-    //plot
+    Plotly.newPlot(div,trace,layout);
 }
+
 

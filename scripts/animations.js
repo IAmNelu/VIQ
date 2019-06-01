@@ -1,26 +1,65 @@
+let polys = [];
+let texts = [];
 $( document ).ready(function() {
-    console.log( "ready!" );
+    $("svg").width(
+        $("svg").width()*0.95
+    );
+
+    $("svg").height(
+        $("svg").height()*0.95
+    );
     polys = $("polygon");
+    texts = $("text");
     for (let i = 0; i < polys.length; i++){
         $(polys[i]).mouseover(function () {
-            $(this).css('position', 'relative');
             $( this ).css("fill", "yellow");
-            $this = $(this);
-            let bbox = this.getBBox();
-            let centreX = bbox.x + bbox.width/2;
-            let centreY = bbox.y + bbox.height/2;
-            $this.css("transform-origin", centreX + 'px ' + centreY + 'px');
-            $this.css("transform", "scale(2)");
-            $this.css("z-index", 100);
         }).mouseleave(function () {
             $( this ).css("fill", "dodgerblue");
-            let bbox = this.getBBox();
-            let centreX = bbox.x + bbox.width/2;
-            let centreY = bbox.y + bbox.height/2;
-            $this = $(this);
-            $this.css("transform-origin", centreX + 'px ' + centreY + 'px');
-            $this.css("transform", "scale(1)");
-            $this.css("z-index", 0);
-        })
+        });
+        $(texts[i]).mouseover(function () {
+            $( this ).prev().css("fill", "yellow");
+        }).mouseleave(function () {
+            $( this ).prev().css("fill", "dodgerblue");
+        });
+        $(polys[i]).click(function () {
+            sparisciQuartiere($(this));
+            $(this).click(appariQuartieri);
+        });
+        $(texts[i]).click(function () {
+            let id = $(this).prev();
+            sparisciQuartiere(id);
+            $(this).click(appariQuartieri);
+        });
     }
+
 });
+
+function sparisciQuartiere(caller){
+
+    let in_polys = $("polygon");
+    let in_texts = $("text");
+    let clicked_id = $(caller).attr('id');
+    for(let i = 0; i < in_polys.length; i++){
+        let temp_id = $(in_polys[i]).attr('id');
+        if(temp_id !== clicked_id){
+            $(in_polys[i]).css("display", "none");
+            $(in_texts[i]).css("display", "none");
+        }
+    }
+}
+
+function appariQuartieri(){
+    for(let i = 0; i < polys.length; i++){
+        $(polys[i]).css("display", "inherit");
+        $(polys[i]).click(function () {
+            sparisciQuartiere($(this));
+            $(this).click(appariQuartieri);
+        });
+        $(texts[i]).css("display", "inherit");
+        $(texts[i]).click(function () {
+            let id = $(this).prev();
+            sparisciQuartiere(id);
+            $(this).click(appariQuartieri);
+        });
+    }
+}

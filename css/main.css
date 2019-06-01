@@ -33,3 +33,6 @@ polygon{
     fill: black;
     font: bold 21px sans-serif;
 }
+#district_graph{
+    display: none;
+}

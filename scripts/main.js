@@ -36,8 +36,8 @@ function readAsync(){
             row += writeRow(i);
         }
         appendHTML('content', row);
-       // PlotTypeSanction(data,"qui");
-       // PlotTimeSanction(data,"qui");
+        //PlotTypeSanction("qui","San Paolo");
+        //PlotTimeSanction("qui");
 
     });
 }
@@ -61,41 +61,49 @@ function okStatus(s){
 }
 ///////////////////////////////////////////////
 
-function PlotTypeSanction(data,div,quartiere){
+function PlotTypeSanction(div,quartiere){
 
     let administrative=0;
     let tributary=0;
+    let multe=[];
+    let i=0;
 
     if(div===undefined)
     {
         console.log("manca il div");
         return;
     }
+
     if(quartiere===undefined)
     {
-        for (let i = 0; i < data.length; i++){
-        if(data[i]["Tipo Sanzione"]=="Amministrativa")
-                administrative++;
-
-        if(data[i]["Tipo Sanzione"]=="Tributaria")
-                tributary++;
+        //tutta torino
+        quartiere="Torino";
+        for (i = 0; i < quartieri.length; i++){
+           multe =multe.concat(quartieri[i]["reati"]);
         }
     }
     else
     {
-        for (let i = 0; i < data.length; i++){
-        if((data[i]["Tipo Sanzione"]=="Amministrativa")&&(data[i]["Quartiere"]==quartiere))
-            administrative++;
-
-        if((data[i]["Tipo Sanzione"]=="Tributaria")&&(data[i]["Quartiere"]==quartiere))
-            tributary++;
+        for (let i = 0; i < quartieri.length; i++){
+           if(quartieri[i].getNome()==quartiere)
+           {
+            multe=multe.concat(quartieri[i]["reati"]);
+           }
         }
+    }
+    for(i=0;i<multe.length;i++)
+    {
+        if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
+            administrative+=parseInt(multe[i]["Numero Verbali"]);
+
+        if((multe[i]["Tipo Sanzione"]=="Tributaria"))
+            tributary+=parseInt(multe[i]["Numero Verbali"]);
     }
 
     var value=[{ values:[administrative,tributary],
                  labels:['Amministrativa','Tributaria'],
                  type : 'pie',
-                 name: 'Starry Night',
+                 name: quartiere,
                  marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
     var layout={height: 500,
                  width: 500};
@@ -103,12 +111,13 @@ function PlotTypeSanction(data,div,quartiere){
     Plotly.newPlot(div,value,layout);
 }
 
-function PlotTimeSanction(data,div,quartiere) {
+function PlotTimeSanction(div,quartiere) {
 
     let  months = [];
+    let multe=[];
     let j,i,m,g,tot;
 
-    console.log(data);
+
     if(div===undefined)
     {
         console.log("manca il div");
@@ -124,25 +133,26 @@ function PlotTimeSanction(data,div,quartiere) {
 
     if(quartiere===undefined)
     {
-        console.log("quartiere non definito");
-        for(i=0;i<data.length;i++)
-        {
-        m=data[i]["Mese Accertamento"]-1;
-        g=data[i]["Giorno Accertamento"]-1;
-        months[m][g] += parseInt(data[i]["Numero Verbali"]);
+        //tutta torino
+        quartiere="Torino";
+        for (i = 0; i < quartieri.length; i++){
+            multe =multe.concat(quartieri[i]["reati"]);
         }
     }
     else
     {
-        for(i=0;i<data.length;i++)
+        for ( i = 0; i < quartieri.length; i++){
+        if(quartieri[i].getNome()==quartiere)
         {
-        if(data[i]["Quartiere"]==quartiere)
-        {
-        m=data[i]["Mese Accertamento"]-1;
-        g=data[i]["Giorno Accertamento"]-1;
-        months[m][g] += parseInt(data[i]["Numero Verbali"]);
+            multe=multe.concat(quartieri[i]["reati"]);
         }
-        }
+    }
+    }
+    for(i=0;i<multe.length;i++)
+    {
+        m=multe[i]["Mese Accertamento"]-1;
+        g=multe[i]["Giorno Accertamento"]-1;
+        months[m][g] += parseInt(multe[i]["Numero Verbali"]);
     }
 
     var value={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
@@ -170,5 +180,3 @@ function PlotTimeSanction(data,div,quartiere) {
 
     Plotly.newPlot(div,[value],layout);
 }
-
-

@@ -12,7 +12,7 @@ class Quartiere{
     addCAP (CAP) { this.CAP.push(CAP)}
     addReato(reato){ this.reati.push(reato);}
     getNumberReati() { return this.reati.length;}
-    addInfrazione() { this.numeroInfrazioni++;}
+    addInfrazione(reato) { this.numeroInfrazioni+=parseInt(reato["Numero Verbali"]);}
 
 }
 
@@ -102,7 +102,7 @@ function putData(json){
             CAPquartiere = Quartiere.getCAP();
             if(CAPquartiere.includes(CAPfile)){
                 Quartiere.addReato(data[i]);
-                 Quartiere.addInfrazione();
+                 Quartiere.addInfrazione(data[i]);
             }
         }
     }

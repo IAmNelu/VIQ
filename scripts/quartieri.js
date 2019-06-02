@@ -8,7 +8,7 @@ class Quartiere{
 
     getNome(){ return this.nome;}
     getCAP() { return this.CAP;}
-    getNumberReati(){ return this.numeroInfrazioni;}
+    getNumberInfrazioni(){ return this.numeroInfrazioni;}
     addCAP (CAP) { this.CAP.push(CAP)}
     addReato(reato){ this.reati.push(reato);}
     getNumberReati() { return this.reati.length;}

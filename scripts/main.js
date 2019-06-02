@@ -38,6 +38,7 @@ function readAsync(){
         appendHTML('content', row);
         //PlotTypeSanction("qui","San Paolo");
         //PlotTimeSanction("qui");
+       // MapColor();
 
     });
 }
@@ -179,4 +180,27 @@ function PlotTimeSanction(div,quartiere) {
     }
 
     Plotly.newPlot(div,[value],layout);
+}
+
+function MapColor(){
+
+    let colore,t,i,nome,mappa,n_multe,n_tot=0;
+
+    for(i=0;i<quartieri.length;i++)
+    {
+        n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
+    }
+
+    for(i=0;i<quartieri.length;i++)
+    {
+        nome=quartieri[i].getNome();
+        mappa=document.getElementById(nome);
+        n_multe=quartieri[i]["numeroInfrazioni"];
+        t=(10*n_multe)/n_tot;
+        colore="#ffffff";
+        console.log(t);
+      //  mappa.setAttribute("style","fill:colore");
+        $(mappa).fill('color','red');
+    }
+
 }

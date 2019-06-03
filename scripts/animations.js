@@ -32,6 +32,7 @@ $( document ).ready(function() {
 
 });
 
+
 function sparisciQuartiere(caller){
 
     let in_polys = $("polygon");

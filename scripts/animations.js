@@ -23,12 +23,10 @@ $( document ).ready(function() {
         });
         $(polys[i]).click(function () {
             sparisciQuartiere($(this));
-            $(this).click(appariQuartieri);
         });
         $(texts[i]).click(function () {
             let id = $(this).prev();
             sparisciQuartiere(id);
-            $(this).click(appariQuartieri);
         });
     }
 
@@ -42,24 +40,8 @@ function sparisciQuartiere(caller){
     for(let i = 0; i < in_polys.length; i++){
         let temp_id = $(in_polys[i]).attr('id');
         if(temp_id !== clicked_id){
-            $(in_polys[i]).css("display", "none");
-            $(in_texts[i]).css("display", "none");
+            $(in_polys[i]).fadeToggle();
+            $(in_texts[i]).fadeToggle();
         }
-    }
-}
-
-function appariQuartieri(){
-    for(let i = 0; i < polys.length; i++){
-        $(polys[i]).css("display", "inherit");
-        $(polys[i]).click(function () {
-            sparisciQuartiere($(this));
-            $(this).click(appariQuartieri);
-        });
-        $(texts[i]).css("display", "inherit");
-        $(texts[i]).click(function () {
-            let id = $(this).prev();
-            sparisciQuartiere(id);
-            $(this).click(appariQuartieri);
-        });
     }
 }

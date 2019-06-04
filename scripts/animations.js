@@ -2,7 +2,7 @@ let polys = [];
 let texts = [];
 $( document ).ready(function() {
     //mapColor(); // to debug 
-    adjustSize(); // to remove
+    //adjustSize(); // to remove
     polys = $("polygon");
     texts = $("text");
     for (let i = 0; i < polys.length; i++){
@@ -44,12 +44,11 @@ function sparisciQuartiere(caller){
 
 
 function adjustSize(){
-    let h_doc = $(document).height();
-    let scale = h_doc/ $("#map_container").height();
-    let desir_w = $("#map_container").width()*scale;
-    alert("Doc: " + h_doc + " - Obj: " + $("#map_container").height());
-    $("#map_container").width(desir_w);
-    $("#map_container").height(h_doc);
+    let per_width = '40%';
+    let margin_left = '5%';
+    $("#map_container").css('width', per_width);
+    $("#map_container").css('margin-left', margin_left);
+
 
 }
 

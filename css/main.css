@@ -32,11 +32,17 @@ polygon{
 }
 .text_map{
     fill: black;
-    font: bold 21px sans-serif;
+    font: bold 19pt sans-serif;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
 }
 #district_graph{
     display: none;
 }
 .sm_txt{
-    font-size: 12pt;
+    font-size: 14pt;
+}
+
+#map_container{
+    width: 40%;
+    margin-left: 5%;
 }

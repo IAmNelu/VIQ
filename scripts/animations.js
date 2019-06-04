@@ -18,9 +18,9 @@ $( document ).ready(function() {
             let lun = idQuartiere.length;
             idQuartiere = idQuartiere.substr(0,lun-2);
             for(let i = 0; i < polys.length; i++){
-               if(idQuartiere == $(polys[i]).attr('id')){
-                   polys[i].css("stroke-width", "10px");
-                   polys[i].css("fill", "yellow");
+               if(idQuartiere === $(polys[i]).attr('id')){
+                   $(polys[i]).css("stroke-width", "10px");
+                   $(polys[i]).css("fill", "yellow");
                    break;
                }
            }
@@ -29,9 +29,9 @@ $( document ).ready(function() {
             let lun = idQuartiere.length;
             idQuartiere = idQuartiere.substr(0,lun-2);
             for(let i = 0; i < polys.length; i++){
-                if(idQuartiere == $(polys[i]).attr('id')){
-                    polys[i].css("stroke-width", "2px");
-                    polys[i].css("fill", "dodgerblue")
+                if(idQuartiere === $(polys[i]).attr('id')){
+                    $(polys[i]).css("stroke-width", "2px");
+                    $(polys[i]).css("fill", "dodgerblue")
                     break;
                 }
             }

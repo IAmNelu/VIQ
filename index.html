@@ -11,6 +11,13 @@
     <h1 class="titolo">Infrazioni Torino</h1>
     <div class="wrapper_map" id="map_container">
         <svg width="100%" height="100%" viewBox="0 0 1166 1120" preserveAspectRatio="none">
+            <defs>
+                <filter x="0" y="0" width="1" height="1" id="solid">
+                  <feFlood flood-color="rgba(255, 255, 255, 0.5)"/>
+                  <feComposite in="SourceGraphic"/> <!-- operator="or"   -->
+                </filter>
+              </defs>
+
 
             <polygon id="Villaretto_Falchera_Rebaudengo" class="quartiere"
                 points="460,143,477,109,461,91,458,79,461,69,459,55,471,51,487,50,499,55,510,61,512,48,499,40,500,27,507,19,517,11,533,22,543,29,556,29,571,30,584,35,595,37,610,45,622,50,631,47,648,50,651,61,666,63,676,56,690,56,694,66,703,74,710,83,746,81,780,71,789,65,795,40,807,32,826,29,841,30,857,30,869,38,866,56,861,73,846,89,833,91,825,115,839,124,851,135,861,124,872,120,898,135,893,143,918,146,936,146,936,166,931,179,946,181,944,196,903,227,883,276,766,317,757,335,730,325,708,361,681,346,654,345,702,274,708,227,677,220,656,204,613,202,590,191,577,163,561,158,544,172,525,178,510,181,492,178,477,166,468,155">
@@ -96,7 +103,7 @@
                 points="67,797,237,904,291,873,394,922,349,979,372,991,397,1015,427,1023,439,987,482,1008,488,1032,467,1110,445,1095,427,1101,416,1106,398,1110,387,1102,375,1090,362,1093,350,1092,341,1081,325,1080,315,1080,307,1087,295,1092,279,1097,248,1082,226,1073,203,1080,183,1071,165,1061,150,1053,136,1064,123,1064,124,1044,116,1041,106,1047,96,1040,83,1032,99,1022,109,1005,148,1009,184,923,154,932,139,918,129,917,60,869,49,866,15,823,28,802,51,818">
             </polygon>
 
-            <text id="Villaretto_Falchera_Rebaudengo_t" x="520" y="150" class="text_map">Villaretto Falchera Rebaudengo</text>
+            <text filter="url(#solid)" id="Villaretto_Falchera_Rebaudengo_t" x="520" y="150" class="text_map">Villaretto Falchera Rebaudengo</text>
             <text id="Borgo_Vittoria_t" x="585" y="300" class="text_map">Borgo
                 <tspan x="575" y="325">Vittoria</tspan></text>
             <text id="Barriera_di_Milano_t" x="650" y="400" class="text_map">Barriera
@@ -107,9 +114,9 @@
                 <tspan x="315" y="370">Lucento</tspan></text>
             <text id="Aurora_t" x="615" y="490" class="text_map">Aurora</text>
             <text id="Centro_t" x="575" y="590" class="text_map">Centro</text>
-            <text id="Crocetta_t" x="415" y="485" class="text_map">San Donato
+            <text id="San_Donato_Campidoglio_t" x="415" y="485" class="text_map">San Donato
                 <tspan x="415" y="510">Campidoglio</tspan></text>
-            <text id="San_Donato_Campidoglio_t" x="485" y="695" class="text_map">Crocetta</text>
+            <text id="Crocetta_t"  x="485" y="695" class="text_map">Crocetta</text>
             <text id="Cenisia_Cit_Turin_t" x="410" y="575" class="text_map">Cenisia
                 <tspan x="405" y="600">Cit Turin</tspan></text>
             <text id="San_Paolo_t" x="380" y="665" class="text_map">Borgo
@@ -118,7 +125,7 @@
                 <tspan x="565" y="755">Salvario</tspan></text>
             <text id="Regio_Parco_Bertola_t" x="840" y="325" class="text_map">Regio Parco
                 <tspan x="850" y="350">Bertola</tspan></text>
-            <text id="Vanchiglia_t"  x="690" y="580" font-size="16px" class="text_map sm_txt">Vanchiglia</text>
+            <text id="Vanchiglia_t"  x="690" y="580" font-size="16px" class="text_map">Vanchiglia</text>
             <text id="Madonna_Del_Pilone_t" x="870" y="620" class="text_map">Madonna Del Pilone</text>
             <text id="Parella_t" x="260" y="500" class="text_map">Parella</text>
             <text id="Pozzo_Strada_t" x="220" y="605" class="text_map">Pozzo Strada</text>

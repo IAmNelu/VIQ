@@ -10,8 +10,8 @@ polygon{
 }
 .text_map{
     fill: black;
-    font: bold 19pt sans-serif;
-    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+    font: bold 20pt sans-serif;
+    text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
 }
 #district_graph{
     display: none;
@@ -23,4 +23,7 @@ polygon{
 #map_container{
     width: 40%;
     margin-left: 5%;
+}
+text{
+    background-color: beige;
 }

@@ -19,11 +19,11 @@ $( document ).ready(function() {
             $( this ).prev().css("fill", "dodgerblue");
         });
         $(polys[i]).click(function () {
-            sparisciQuartiere($(this));
+            //sparisciQuartiere($(this));
         });
         $(texts[i]).click(function () {
             let id = $(this).prev();
-            sparisciQuartiere(id);
+            //sparisciQuartiere(id);
         });
     }
 

@@ -74,3 +74,11 @@ function mapColor(){
     }
 
 }
+
+
+function adjustZIndexing(){
+    texts.forEach(element => {
+        $(element).zIndex(5);
+    });
+    
+}

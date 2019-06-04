@@ -31,7 +31,7 @@ quartieri = [
     new Quartiere('Aurora'),
     new Quartiere('Madonna Del Pilone'),
     new Quartiere('Pozzo Strada'),
-    new Quartiere('Centro'), //guarda bene CAP
+    new Quartiere('Centro'),
     new Quartiere('Vanchiglia'),
     new Quartiere('Crocetta'),
     new Quartiere('San Salvario'),
@@ -109,5 +109,4 @@ function putData(json){
 }
 
 readQuartieri();
-console.log(quartieri);
 /////////////////////////////////////////////

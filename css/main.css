@@ -4,6 +4,7 @@ html,body{height:100%}
     margin: 0 auto;
 }
 polygon{
+    border : 3px solid black;
     stroke: black;
     stroke-width: 2px;
     fill: dodgerblue;

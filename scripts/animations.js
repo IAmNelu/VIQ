@@ -8,27 +8,48 @@ $( document ).ready(function() {
     for (let i = 0; i < polys.length; i++){
         $(polys[i]).mouseover(function () {
             $( this ).css("fill", "yellow");
-            $( this).css("border", "30px solid black");
+            $( this).css("stroke-width", "10px");
         }).mouseleave(function () {
             $( this ).css("fill", "dodgerblue");
+            $( this).css("stroke-width", "2px");
         });
         $(texts[i]).mouseover(function () {
-            $( this ).prev().css("fill", "yellow");
-            $( this).prev().css("border", "30px solid black");
+            let idQuartiere =  $( this ).attr('id');
+            let lun = idQuartiere.length;
+            idQuartiere = idQuartiere.substr(0,lun-2);
+            for(let i = 0; i < polys.length; i++){
+               if(idQuartiere == $(polys[i]).attr('id')){
+                   polys[i].css("stroke-width", "10px");
+                   polys[i].css("fill", "yellow");
+                   break;
+               }
+           }
         }).mouseleave(function () {
-            $( this ).prev().css("fill", "dodgerblue");
+            let idQuartiere =  $( this ).attr('id');
+            let lun = idQuartiere.length;
+            idQuartiere = idQuartiere.substr(0,lun-2);
+            for(let i = 0; i < polys.length; i++){
+                if(idQuartiere == $(polys[i]).attr('id')){
+                    polys[i].css("stroke-width", "2px");
+                    polys[i].css("fill", "dodgerblue")
+                    break;
+                }
+            }
         });
         $(polys[i]).click(function () {
-            sparisciQuartiere($(this));
+           // sparisciQuartiere($(this));
+            plotDiv = $('#district_graph');
+            plotDiv.show();
         });
         $(texts[i]).click(function () {
-            let id = $(this).prev();
-            sparisciQuartiere(id);
+            //let id = $(this).prev();
+            //sparisciQuartiere(id);
+            plotDiv.show();
         });
     }
 
 });
-/*
+
 function sparisciQuartiere(caller){
 
     let in_polys = $("polygon");
@@ -42,8 +63,6 @@ function sparisciQuartiere(caller){
         }
     }
 }
- */
-
 
 function adjustSize(){
     let per_width = '40%';

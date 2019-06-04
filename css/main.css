@@ -1,3 +1,4 @@
+html,body{height:100%}
 #content {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -35,4 +36,7 @@ polygon{
 }
 #district_graph{
     display: none;
+}
+.sm_txt{
+    font-size: 12pt;
 }

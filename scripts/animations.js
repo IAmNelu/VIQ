@@ -1,13 +1,7 @@
 let polys = [];
 let texts = [];
 $( document ).ready(function() {
-    $("svg").width(
-        $("svg").width()*0.95
-    );
-
-    $("svg").height(
-        $("svg").height()*0.95
-    );
+    adjustSize();
     polys = $("polygon");
     texts = $("text");
     for (let i = 0; i < polys.length; i++){
@@ -45,4 +39,15 @@ function sparisciQuartiere(caller){
             $(in_texts[i]).fadeToggle();
         }
     }
+}
+
+
+function adjustSize(){
+    let h_doc = $(document).height();
+    let scale = h_doc/ $("svg").height();
+    let desir_w = $("svg").width()*scale;
+    alert("Doc: " + h_doc + " - Obj: " + $("svg").height());
+    $("svg").width(desir_w);
+    $("svg").height(h_doc);
+
 }

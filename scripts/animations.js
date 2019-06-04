@@ -79,16 +79,17 @@ function mapColor(){
     {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
     }
+
     for(i=0;i<quartieri.length;i++)
     {
         nome=quartieri[i].getNome();
-        mappa=document.getElementById(nome);
+        mappa=document.getElementById("Barriera_di_Milano");
         n_multe=quartieri[i]["numeroInfrazioni"];
         t=(10*n_multe)/n_tot;
         colore="#ffffff";
         console.log(t);
       //  mappa.setAttribute("style","fill:colore");
-        $(mappa).fill('color','red');
+        $(mappa).css('fill','colore');
     }
 
 }

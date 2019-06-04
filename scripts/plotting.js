@@ -1,8 +1,9 @@
+//to debug
 function PlotTimeSanction(div,quartiere) {
 
-    let  months = [];
+    let  months = [],data=[];
     let multe=[];
-    let j,i,m,g,tot;
+    let j,i,m,g,tot,nome_q;
 
 
     if(div===undefined)
@@ -11,70 +12,68 @@ function PlotTimeSanction(div,quartiere) {
         return;
     }
 
-    for(j=0;j<12;j++)
-    {
-        months[j]=[];
-        for(i=0;i<31;i++)
-            months[j][i]=0;
-    }
 
-    if(quartiere===undefined)
-    {
+    var trace={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+        y:[],
+        type:'scatter',
+        orientation:"v"};
+
+    var layout={title:"Infrazioni Torino 2017",
+        margin: {l: 45, r:20, b: 50, t:60},
+        width:500,
+        height:400,
+        xaxis: { title: "Mese"},
+        yaxis: { title: "N° Infrazioni"}};
+
         //tutta torino
-        quartiere="Torino";
         for (i = 0; i < quartieri.length; i++){
             multe =multe.concat(quartieri[i]["reati"]);
         }
-    }
-    else
-    {
-        for ( i = 0; i < quartieri.length; i++){
-        if(quartieri[i].getNome()==quartiere)
-        {
-            multe=multe.concat(quartieri[i]["reati"]);
+
+        for(m=0;m<12;m++){
+        months[m]=0;
         }
-    }
-    }
-    for(i=0;i<multe.length;i++)
-    {
+
+        for(i=0;i<multe.length;i++){
         m=multe[i]["Mese Accertamento"]-1;
-        g=multe[i]["Giorno Accertamento"]-1;
-        months[m][g] += parseInt(multe[i]["Numero Verbali"]);
-    }
-
-    var value={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-                y:[],
-                type:'bar',
-                orientation:"v",
-                marker: { color: "DodgerBlue",}};
-    var layout={title:"Anno: 2017",
-                margin: {l: 45, r:20, b: 50, t:60},
-                width:500,
-                height:400,
-                xaxis: { title: "Mese"},
-               yaxis: { title: "N° Infrazioni"}
-    };
-
-    for(m=0;m<12;m++)
-    {
-        tot=0;
-        for(g=0;g<31;g++)
-        {
-            tot=tot+months[m][g];
+        months[m] += parseInt(multe[i]["Numero Verbali"]);
         }
-        value.y.push(tot);
+        trace.y.push(months);
+        data.push(trace);
+// i singoli quartieri
+    for(j=0;j<quartiere.length;j++){
+        //inizializzo i mesi
+        for(m=0;m<12;m++)
+        {
+         months[m]=0;
+        }
+        //trovo il quartiere
+        //nome_q= ottieni nome quartiere
+        for ( i = 0; i < quartieri.length; i++){
+            if(quartieri[i].getNome()==nome_q)
+            {
+                multe=multe.concat(quartieri[i]["reati"]);
+            }
+        }
+        //calcolo le multe per mese
+        for(i=0;i<multe.length;i++){
+            m=multe[i]["Mese Accertamento"]-1;
+            months[m] += parseInt(multe[i]["Numero Verbali"]);
+        }
+
+        trace.y.push(months);
+        data.push(trace);
     }
 
-    Plotly.newPlot(div,[value],layout);
+    Plotly.newPlot(div,[data],layout);
 }
-
-
+//to debug
 function PlotTypeSanction(div,quartiere){
 
     let administrative=0;
     let tributary=0;
-    let multe=[];
-    let i=0;
+    let multe=[],data=[];
+    let i,j,nome_q,tot;
 
     if(div===undefined)
     {
@@ -82,23 +81,29 @@ function PlotTypeSanction(div,quartiere){
         return;
     }
 
-    if(quartiere===undefined)
-    {
-        //tutta torino
-        quartiere="Torino";
-        for (i = 0; i < quartieri.length; i++){
-           multe =multe.concat(quartieri[i]["reati"]);
-        }
+    //x = nomi quartieri
+    //y1 = administrative
+    //y2 = tributary
+    var trace1=[{x:[],
+                y:[],
+                type : 'bar',
+                marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
+
+    var trace2=[{x:[],
+        y:[],
+        type : 'bar',
+        marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
+
+    var layout={height: 500,
+                width: 500,
+                barmode: 'stack'};
+
+
+    //tutta torino
+    for (i = 0; i < quartieri.length; i++){
+        multe =multe.concat(quartieri[i]["reati"]);
     }
-    else
-    {
-        for (let i = 0; i < quartieri.length; i++){
-           if(quartieri[i].getNome()==quartiere)
-           {
-            multe=multe.concat(quartieri[i]["reati"]);
-           }
-        }
-    }
+    //calcolo
     for(i=0;i<multe.length;i++)
     {
         if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
@@ -107,14 +112,41 @@ function PlotTypeSanction(div,quartiere){
         if((multe[i]["Tipo Sanzione"]=="Tributaria"))
             tributary+=parseInt(multe[i]["Numero Verbali"]);
     }
+    tot=tributary+administrative;
+    tributary=(tributary*100)/tot;
+    administrative=(administrative*100)/tot;
 
-    var value=[{ values:[administrative,tributary],
-                 labels:['Amministrativa','Tributaria'],
-                 type : 'pie',
-                 name: quartiere,
-                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
-    var layout={height: 500,
-                 width: 500};
+    trace1.x.push("Torino");
+    trace2.x.push("Torino");
+    trace1.y.push(administrative);
+    trace2.y.push(tributary);
 
-    Plotly.newPlot(div,value,layout);
+    for(j=0;j<quartiere.length;j++){
+        multe="";
+        for (let i = 0; i < quartieri.length; i++){
+            //nome_q= ottenere nome quartiere
+            if(quartieri[i].getNome()==nome_q){
+                multe=multe.concat(quartieri[i]["reati"]);
+            }
+        }
+        administrative=0;
+        tributary=0;
+        for(i=0;i<multe.length;i++)
+        {
+            if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
+                administrative+=parseInt(multe[i]["Numero Verbali"]);
+
+            if((multe[i]["Tipo Sanzione"]=="Tributaria"))
+                tributary+=parseInt(multe[i]["Numero Verbali"]);
+        }
+    tot=tributary+administrative;
+    tributary=(tributary*100)/tot;
+    administrative=(administrative*100)/tot;
+    trace1.x.push(nome_q);
+    trace2.x.push(nome_q);
+    trace1.y.push(administrative);
+    trace2.y.push(tributary);
+    }
+    data=[trace1,trace2];
+    Plotly.newPlot(div,[data],layout);
 }

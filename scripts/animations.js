@@ -8,11 +8,13 @@ $( document ).ready(function() {
     for (let i = 0; i < polys.length; i++){
         $(polys[i]).mouseover(function () {
             $( this ).css("fill", "yellow");
+            $( this).css("border", "30px solid black");
         }).mouseleave(function () {
             $( this ).css("fill", "dodgerblue");
         });
         $(texts[i]).mouseover(function () {
             $( this ).prev().css("fill", "yellow");
+            $( this).prev().css("border", "30px solid black");
         }).mouseleave(function () {
             $( this ).prev().css("fill", "dodgerblue");
         });
@@ -26,8 +28,7 @@ $( document ).ready(function() {
     }
 
 });
-
-
+/*
 function sparisciQuartiere(caller){
 
     let in_polys = $("polygon");
@@ -41,6 +42,7 @@ function sparisciQuartiere(caller){
         }
     }
 }
+ */
 
 
 function adjustSize(){
@@ -53,14 +55,11 @@ function adjustSize(){
 }
 
 function mapColor(){
-
     let colore,t,i,nome,mappa,n_multe,n_tot=0;
-
     for(i=0;i<quartieri.length;i++)
     {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
     }
-
     for(i=0;i<quartieri.length;i++)
     {
         nome=quartieri[i].getNome();

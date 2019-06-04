@@ -10,11 +10,6 @@ function readAsync(){
         data = JSON.parse(json);
         let item = data[0];
         keys = Object.keys(item);
-        let row = writeHeader();
-
-        for (let i = 0; i < data.length; i++){
-            row += writeRow(i);
-        }
         //--------------> funzione consumer
         //PlotTypeSanction("qui","San Paolo");
         //PlotTimeSanction("qui");

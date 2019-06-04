@@ -1,7 +1,8 @@
 let polys = [];
 let texts = [];
 $( document ).ready(function() {
-    adjustSize();
+    //mapColor(); // to debug 
+    adjustSize(); // to remove
     polys = $("polygon");
     texts = $("text");
     for (let i = 0; i < polys.length; i++){
@@ -44,10 +45,33 @@ function sparisciQuartiere(caller){
 
 function adjustSize(){
     let h_doc = $(document).height();
-    let scale = h_doc/ $("svg").height();
-    let desir_w = $("svg").width()*scale;
-    alert("Doc: " + h_doc + " - Obj: " + $("svg").height());
-    $("svg").width(desir_w);
-    $("svg").height(h_doc);
+    let scale = h_doc/ $("#map_container").height();
+    let desir_w = $("#map_container").width()*scale;
+    alert("Doc: " + h_doc + " - Obj: " + $("#map_container").height());
+    $("#map_container").width(desir_w);
+    $("#map_container").height(h_doc);
+
+}
+
+function mapColor(){
+
+    let colore,t,i,nome,mappa,n_multe,n_tot=0;
+
+    for(i=0;i<quartieri.length;i++)
+    {
+        n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
+    }
+
+    for(i=0;i<quartieri.length;i++)
+    {
+        nome=quartieri[i].getNome();
+        mappa=document.getElementById(nome);
+        n_multe=quartieri[i]["numeroInfrazioni"];
+        t=(10*n_multe)/n_tot;
+        colore="#ffffff";
+        console.log(t);
+      //  mappa.setAttribute("style","fill:colore");
+        $(mappa).fill('color','red');
+    }
 
 }

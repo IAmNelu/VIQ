@@ -5,7 +5,18 @@ $( document ).ready(function() {
     //adjustSize(); // to remove
     polys = $("polygon");
     texts = $("text");
+    svg = document.querySelector("svg");
     for (let i = 0; i < polys.length; i++){
+        polys[i].addEventListener("mouseover", function(e) { //hovering done right
+            svg.appendChild(e.target);
+            let idQuartiere =  $( e.target ).attr('id');
+            let idText = '#' + idQuartiere + '_t';
+            let text = $(idText);
+            svg.appendChild(text[0]);
+        });
+        // polys[i].addEventListener("mouseleave", function(e) { //hovering doen rightdebug to make the text first
+        //     svg.appendChild(first, e.target);
+        // });
         $(polys[i]).mouseover(function () {
             $( this ).css("fill", "yellow");
             $( this).css("stroke-width", "10px");

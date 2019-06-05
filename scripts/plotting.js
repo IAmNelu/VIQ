@@ -3,7 +3,7 @@ function PlotTimeSanction(div,quartiere) {
 
     let  months = [],data=[];
     let multe=[];
-    let j,i,m,g,tot,nome_q;
+    let j,i,m,g,tot,nome_s=[],nome_q;
 
 
     if(div===undefined)
@@ -47,8 +47,19 @@ function PlotTimeSanction(div,quartiere) {
         {
          months[m]=0;
         }
-        //trovo il quartiere
-        //nome_q= ottieni nome quartiere
+        nome_q="";
+        nome_s=quartiere[j].split("_");
+
+        if(nome_s.length==1){
+            nome_q=nome_s;
+        }
+        if(nome_s.length==2){
+            nome_q=nome_s[0]+" "+nome_s[1];
+        }
+        if(nome_s.length==3){
+            nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
+        }
+
         for ( i = 0; i < quartieri.length; i++){
             if(quartieri[i].getNome()==nome_q)
             {
@@ -123,8 +134,20 @@ function PlotTypeSanction(div,quartiere){
 
     for(j=0;j<quartiere.length;j++){
         multe="";
+        nome_q="";
+        nome_s=quartiere[j].split("_");
+
+        if(nome_s.length==1){
+            nome_q=nome_s;
+        }
+        if(nome_s.length==2){
+            nome_q=nome_s[0]+" "+nome_s[1];
+        }
+        if(nome_s.length==3){
+            nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
+        }
+
         for (let i = 0; i < quartieri.length; i++){
-            //nome_q= ottenere nome quartiere
             if(quartieri[i].getNome()==nome_q){
                 multe=multe.concat(quartieri[i]["reati"]);
             }

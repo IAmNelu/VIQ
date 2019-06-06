@@ -7,6 +7,7 @@ $( document ).ready(function() {
     texts = $("text");
     svg = document.querySelector("svg");
     for (let i = 0; i < polys.length; i++){
+        /*Hover su Polygon*/
         polys[i].addEventListener("mouseover", function(e) { //hovering done right
             svg.appendChild(e.target);
             let idQuartiere =  $( e.target ).attr('id');
@@ -14,9 +15,11 @@ $( document ).ready(function() {
             let text = $(idText);
             svg.appendChild(text[0]);
         });
-        // polys[i].addEventListener("mouseleave", function(e) { //hovering doen rightdebug to make the text first
-        //     svg.appendChild(first, e.target);
-        // });
+        polys[i].addEventListener("mouseleave", function(e) {
+            for (let i = 0; i < polys.length; i++) {
+                svg.appendChild(texts[i]);
+            }
+        })
         $(polys[i]).mouseover(function () {
             $( this ).css("fill", "yellow");
             $( this).css("stroke-width", "10px");
@@ -24,6 +27,22 @@ $( document ).ready(function() {
             $( this ).css("fill", "dodgerblue");
             $( this).css("stroke-width", "2px");
         });
+
+        ///////////////////////////////////
+        /*Hover su Text*/
+        texts[i].addEventListener("mouseover", function(e) {
+            let idText =  $( e.target ).attr('id');
+            let lun = idText.length;
+            let idQuartiere = '#' + idText.substr(0,lun-2);
+            let quart =  $(idQuartiere); //DA PROBLEMI SU ALCUNI QUARTIERI E SOLO ALCUNE VOLTE, NON RIESCE A LEGGERE LA LUNGHEZZA DI idText
+            svg.appendChild(quart[0]);
+            svg.appendChild(e.target);
+        })
+        texts[i].addEventListener("mouseleave", function(e) {
+            for (let i = 0; i < polys.length; i++) {
+                svg.appendChild(texts[i]);
+            }
+        })
         $(texts[i]).mouseover(function () {
             let idQuartiere =  $( this ).attr('id');
             let lun = idQuartiere.length;
@@ -47,14 +66,17 @@ $( document ).ready(function() {
                 }
             }
         });
+        ///////////////////////////////////
+
         $(polys[i]).click(function () {
            // sparisciQuartiere($(this));
-            plotDiv = $('#district_graph');
+            let plotDiv = $('#district_graph');
             plotDiv.show();
         });
         $(texts[i]).click(function () {
             //let id = $(this).prev();
             //sparisciQuartiere(id);
+            let plotDiv = $('#district_graph');
             plotDiv.show();
         });
     }
@@ -80,8 +102,6 @@ function adjustSize(){
     let margin_left = '5%';
     $("#map_container").css('width', per_width);
     $("#map_container").css('margin-left', margin_left);
-
-
 }
 
 function mapColor(){

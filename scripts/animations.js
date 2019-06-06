@@ -96,7 +96,8 @@ function adjustSize(){
 }
 
 function mapColor(){
-    let colore,t,i,nome,mappa,n_multe,n_tot=0;
+    let colore,t,i,nome,mappa,n_multe,n_tot=0,nome_s=[],tot=0;
+
     for(i=0;i<quartieri.length;i++)
     {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
@@ -105,16 +106,47 @@ function mapColor(){
     for(i=0;i<quartieri.length;i++)
     {
         nome=quartieri[i].getNome();
-        mappa=document.getElementById("Barriera_di_Milano");
+        nome_s=nome.split(" ");
+
+        if(nome_s.length==1){
+            nome=nome_s;
+        }
+        if(nome_s.length==2){
+            nome=nome_s[0]+"_"+nome_s[1];
+        }
+        if(nome_s.length==3){
+            nome=nome_s[0]+"_"+nome_s[1]+"_"+nome_s[2];
+        }
+
+        mappa=document.getElementById(nome);
         n_multe=quartieri[i]["numeroInfrazioni"];
-        t=(10*n_multe)/n_tot;
-        colore="#ffffff";
-        console.log(t);
-      //  mappa.setAttribute("style","fill:colore");
-        $(mappa).css('fill','colore');
+        t=(765*n_multe)/n_tot;
+        tot=decimalToHex(127-t);
+        console.log("quartiere= "+nome);
+        console.log("t= "+t);
+        colore="#ff"+tot+"00";
+        $(mappa).css('fill',colore);
     }
 
 }
+
+function decimalToHex(decimal) {
+    var hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+    var conv="",r1,r2,ris;
+    decimal=Math.floor(decimal);
+    if(decimal<16){
+        conv="0"+hex[decimal];
+    }
+    else{
+        r1=Math.floor(decimal%16);
+        ris=Math.floor(decimal/16);
+        r2=Math.floor(ris%16);
+        conv=hex[r2]+hex[r1];
+    }
+
+    return conv;
+}
+
 
 
 function adjustZIndexing(){

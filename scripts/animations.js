@@ -1,40 +1,38 @@
 let polys = [];
 let texts = [];
-$( document ).ready(function() {
-
-    //adjustSize(); // to remove
+$(document).ready(function () {
     polys = $("polygon");
     texts = $("text");
     svg = document.querySelector("svg");
-    for (let i = 0; i < polys.length; i++){
+    for (let i = 0; i < polys.length; i++) {
         /*Hover su Polygon*/
-        polys[i].addEventListener("mouseover", function(e) { //hovering done right
+        polys[i].addEventListener("mouseover", function (e) { //hovering done right
             svg.appendChild(e.target);
-            let idQuartiere =  $( e.target ).attr('id');
+            let idQuartiere = $(e.target).attr('id');
             let idText = '#' + idQuartiere + '_t';
             let text = $(idText);
             svg.appendChild(text[0]);
             $(polys[i]).css("fill", "yellow");
             $(polys[i]).css("stroke-width", "10px");
         });
-        polys[i].addEventListener("mouseleave", function(e) {
+        polys[i].addEventListener("mouseleave", function (e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
-            $(polys[i]).css("fill", "dodgerblue");
+            colorQuartieri();
             $(polys[i]).css("stroke-width", "2px");
         });
         ///////////////////////////////////
 
         /*Hover su Text*/
-        texts[i].addEventListener("mouseover", function(e) {
-            let idText =  $(texts[i]).attr('id');
+        texts[i].addEventListener("mouseover", function (e) {
+            let idText = $(texts[i]).attr('id');
             let lun = idText.length;
-            let idQuartiere = idText.substr(0,lun-2);
-            let quart =  $('#' + idQuartiere);
+            let idQuartiere = idText.substr(0, lun - 2);
+            let quart = $('#' + idQuartiere);
             svg.appendChild(quart[0]);
             svg.appendChild(texts[i]);
-            for(let i = 0; i < polys.length; i++) {
+            for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "10px");
                     $(polys[i]).css("fill", "yellow");
@@ -42,110 +40,114 @@ $( document ).ready(function() {
                 }
             }
         });
-        texts[i].addEventListener("mouseleave", function(e) {
+        texts[i].addEventListener("mouseleave", function (e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
-            let idQuartiere =  $(texts[i]).attr('id');
+            let idQuartiere = $(texts[i]).attr('id');
             let lun = idQuartiere.length;
-            idQuartiere = idQuartiere.substr(0,lun-2);
-            for(let i = 0; i < polys.length; i++){
-                if(idQuartiere === $(polys[i]).attr('id')){
+            colorQuartieri();
+            idQuartiere = idQuartiere.substr(0, lun - 2);
+            for (let i = 0; i < polys.length; i++) {
+                if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "2px");
-                    $(polys[i]).css("fill", "dodgerblue")
                     break;
                 }
             }
         })
         ///////////////////////////////////
-
         $(polys[i]).click(function () {
-           // sparisciQuartiere($(this));
             let plotDiv = $('#district_graph');
             plotDiv.show();
         });
         $(texts[i]).click(function () {
-            //let id = $(this).prev();
-            //sparisciQuartiere(id);
             let plotDiv = $('#district_graph');
             plotDiv.show();
         });
     }
+    window.setTimeout("mapColor()", 300);
+    window.setTimeout("colorQuartieri()", 305);
 });
 
-function sparisciQuartiere(caller){
+function sparisciQuartiere(caller) {
 
     let in_polys = $("polygon");
     let in_texts = $("text");
     let clicked_id = $(caller).attr('id');
-    for(let i = 0; i < in_polys.length; i++){
+    for (let i = 0; i < in_polys.length; i++) {
         let temp_id = $(in_polys[i]).attr('id');
-        if(temp_id !== clicked_id){
+        if (temp_id !== clicked_id) {
             $(in_polys[i]).fadeToggle();
             $(in_texts[i]).fadeToggle();
         }
     }
 }
 
-function adjustSize(){
+function adjustSize() {
     let per_width = '40%';
     let margin_left = '5%';
     $("#map_container").css('width', per_width);
     $("#map_container").css('margin-left', margin_left);
 }
 
-function mapColor(){
-    let colore,t,i,nome,mappa,n_multe,n_tot=0,nome_s=[],tot=0;
-
-    for(i=0;i<quartieri.length;i++)
-    {
+function mapColor() {
+    let colore, t, n_multe, n_tot = 0, tot = 0;
+    for (let i = 0; i < quartieri.length; i++) {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
     }
-
-    for(i=0;i<quartieri.length;i++)
-    {
-        nome=quartieri[i].getNome();
-        nome_s=nome.split(" ");
-
-        if(nome_s.length==1){
-            nome=nome_s;
-        }
-        if(nome_s.length==2){
-            nome=nome_s[0]+"_"+nome_s[1];
-        }
-        if(nome_s.length==3){
-            nome=nome_s[0]+"_"+nome_s[1]+"_"+nome_s[2];
-        }
-        mappa=document.getElementById(nome);
-        n_multe=quartieri[i]["numeroInfrazioni"];
-        t=(765*n_multe)/n_tot;
-        tot=decimalToHex(127-t);
-        colore="#ff"+tot+"00";
-        $(mappa).css('fill',colore);
+    for (let i = 0; i < quartieri.length; i++) {
+        nome = getIdFromNomeQuartiere(quartieri[i].getNome());
+        n_multe = quartieri[i]["numeroInfrazioni"];
+        t = (765 * n_multe) / n_tot;
+        tot = decimalToHex(127 - t);
+        colore = "#ff" + tot + "00";
+        quartieri[i].setColore(colore);
     }
 
 }
 
 function decimalToHex(decimal) {
     var hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
-    var conv="",r1,r2,ris;
-    decimal=Math.floor(decimal);
-    if(decimal<16){
-        conv="0"+hex[decimal];
+    var conv = "", r1, r2, ris;
+    decimal = Math.floor(decimal);
+    if (decimal < 16) {
+        conv = "0" + hex[decimal];
     }
-    else{
-        r1=Math.floor(decimal%16);
-        ris=Math.floor(decimal/16);
-        r2=Math.floor(ris%16);
-        conv=hex[r2]+hex[r1];
+    else {
+        r1 = Math.floor(decimal % 16);
+        ris = Math.floor(decimal / 16);
+        r2 = Math.floor(ris % 16);
+        conv = hex[r2] + hex[r1];
     }
 
     return conv;
 }
 
-function adjustZIndexing(){
-    texts.forEach(element => {
-        $(element).zIndex(5);
-    });
-    
+function getIdFromNomeQuartiere(nome) {
+    let nome_s = nome.split(" ");
+    let nome_r;
+    if (nome_s.length == 1) {
+        nome_r = nome_s;
+    }
+    if (nome_s.length == 2) {
+        nome_r = nome_s[0] + "_" + nome_s[1];
+    }
+    if (nome_s.length == 3) {
+        nome_r = nome_s[0] + "_" + nome_s[1] + "_" + nome_s[2];
+    }
+
+    return nome_r;
 }
+
+function colorQuartieri() {
+    let poligono;
+    let nome;
+    let colore;
+    for (let i = 0; i < quartieri.length; i++) {
+        nome = getIdFromNomeQuartiere(quartieri[i].getNome());
+        poligono = document.getElementById(nome);
+        colore = quartieri[i].getColore();
+        $(poligono).css('fill', colore);
+    }
+}
+

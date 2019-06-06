@@ -4,14 +4,14 @@ html,body{height:100%}
     margin: 0 auto;
 }
 polygon{
-    stroke: black;
+    stroke: beige;
     stroke-width: 2px;
-    fill: dodgerblue;
+    fill: grey;
 }
 .text_map{
     fill: black;
-    font: bold 20pt sans-serif;
-    text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;
+    font: bold 22pt sans-serif;
+    /*text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;*/
 }
 #district_graph{
     display: none;
@@ -21,7 +21,7 @@ polygon{
 }
 
 #map_container{
-    width: 40%;
+    width: 43%;
     margin-left: 5%;
 }
 text{

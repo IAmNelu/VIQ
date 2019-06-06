@@ -4,6 +4,7 @@ class Quartiere{
         this.CAP = [];
         this.reati = [];
         this.numeroInfrazioni = 0;
+        this.colore = ""
     }
 
     getNome(){ return this.nome;}
@@ -13,7 +14,8 @@ class Quartiere{
     addReato(reato){ this.reati.push(reato);}
     getNumberReati() { return this.reati.length;}
     addInfrazione(reato) { this.numeroInfrazioni+=parseInt(reato["Numero Verbali"]);}
-
+    getColore(){return this.colore;}
+    setColore(color){this.colore = color;}
 }
 
 let quartieri;

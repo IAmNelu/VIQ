@@ -1,5 +1,6 @@
 let polys = [];
 let texts = [];
+let selected = [];
 $(document).ready(function () {
     polys = $("polygon");
     texts = $("text");
@@ -58,10 +59,13 @@ $(document).ready(function () {
         ///////////////////////////////////
         $(polys[i]).click(function () {
             let plotDiv = $('#district_graph');
+            aggiungiTogliSelected(this.id);
             plotDiv.show();
         });
         $(texts[i]).click(function () {
             let plotDiv = $('#district_graph');
+            let polyid= this.id.substring(0, this.id.length-2);
+            aggiungiTogliSelected(polyid);
             plotDiv.show();
         });
     }
@@ -151,3 +155,32 @@ function colorQuartieri() {
     }
 }
 
+function isIn(quartiere_s){
+    for(let i = 0; i < selected.length; i++){
+        if (selected[i] === quartiere_s){
+            return true;
+        }
+    }
+    return false;
+}
+
+function aggiungiTogliSelected(id_quartiere){
+    let new_array = [];
+    if(isIn(id_quartiere)){ 
+        while(selected.length > 0){
+            let ele = selected.pop();
+            if(ele !== id_quartiere){
+                new_array.push(ele);
+            }
+        }
+        selected = new_array;
+    }else{
+        if(selected.length < 3){
+            selected.push(id_quartiere);
+        }else{
+            alert('You can confrontare massimo three quartieri')
+        }
+        
+    }
+    console.log(selected);
+}

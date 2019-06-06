@@ -1,8 +1,6 @@
 let data;
 let keys;
 
-
-
 /* READING FUNCTION AND ASYNCHRONOUS REQUEST */
 ///////////////////////////////////////////////
 function readAsync(){

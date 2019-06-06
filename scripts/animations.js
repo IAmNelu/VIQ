@@ -15,6 +15,7 @@ $(document).ready(function () {
             svg.appendChild(text[0]);
             $(polys[i]).css("fill", "yellow");
             $(polys[i]).css("stroke-width", "10px");
+            $(texts[i]).css("font-size","22pt");
         });
         polys[i].addEventListener("mouseleave", function (e) {
             for (let i = 0; i < polys.length; i++) {
@@ -22,6 +23,7 @@ $(document).ready(function () {
             }
             colorQuartieri();
             $(polys[i]).css("stroke-width", "2px");
+            $(texts[i]).css("font-size","14pt");
         });
         ///////////////////////////////////
 
@@ -37,6 +39,7 @@ $(document).ready(function () {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "10px");
                     $(polys[i]).css("fill", "yellow");
+                    $(texts[i]).css("font-size","22pt");
                     break;
                 }
             }
@@ -52,10 +55,11 @@ $(document).ready(function () {
             for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "2px");
+                    $(texts[i]).css("font-size","14pt");
                     break;
                 }
             }
-        })
+        });
         ///////////////////////////////////
         $(polys[i]).click(function () {
             let plotDiv = $('#district_graph');

@@ -10,7 +10,7 @@ polygon{
 }
 .text_map{
     fill: black;
-    font: bold 22pt sans-serif;
+    font: bold 14pt sans-serif;
     /*text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;*/
 }
 #district_graph{

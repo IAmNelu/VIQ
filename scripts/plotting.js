@@ -1,11 +1,8 @@
-let quartiere=[];
-
 function plotTimeSanction(div) {
 
-    let  months = [];
+    let months = [];
     let multe=[];
-    let j,i,m,g,tot,nome_s=[],nome_q;
-
+    let j,i,m,nome_s=[],nome_q;
 
     if(div===undefined)
     {
@@ -54,14 +51,14 @@ function plotTimeSanction(div) {
 
 // i singoli quartieri
 
-    for(j=0;j<quartiere.length;j++){
+    for(j=0;j<selected.length;j++){
         //inizializzo i mesi
         for(m=0;m<12;m++)
         {
          months[m]=0;
         }
         nome_q="";
-        nome_s=quartiere[j].split("_");
+        nome_s=selected[j].split("_");
 
         if(nome_s.length==1){
             nome_q=nome_s[0];
@@ -72,6 +69,7 @@ function plotTimeSanction(div) {
         if(nome_s.length==3){
             nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
         }
+
         multe=[];
         for ( i = 0; i < quartieri.length; i++){
             if(quartieri[i].getNome()===nome_q)
@@ -91,17 +89,15 @@ function plotTimeSanction(div) {
         trace[j+1].name=nome_q;
     }
 
-
     Plotly.newPlot(div,trace,layout);
 }
 
-//to debug
 function plotTypeSanction(div){
 
     let administrative=0;
     let tributary=0;
     let multe=[],data=[];
-    let i,j,nome_q,tot;
+    let i,j,nome_q,nome_s,tot;
 
     if(div===undefined)
     {
@@ -112,47 +108,50 @@ function plotTypeSanction(div){
     //x = nomi quartieri
     //y1 = administrative
     //y2 = tributary
-    var trace1=[{x:[],
+    var trace1={x:[],
                 y:[],
-                type : 'bar',
-                marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
+                type: 'bar',
+                name:"Amministative",
+                marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },};
 
-    var trace2=[{x:[],
+    var trace2={x:[],
                  y:[],
-                 type : 'bar',
-                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
+                 type: 'bar',
+                 name: "Tributarie",
+                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },};
 
     var layout={height: 500,
                 width: 500,
                 barmode: 'stack'};
 
-
     //tutta torino
     for (i = 0; i < quartieri.length; i++){
         multe =multe.concat(quartieri[i]["reati"]);
     }
+
     //calcolo
     for(i=0;i<multe.length;i++)
     {
-        if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
-            administrative+=parseInt(multe[i]["Numero Verbali"]);
-
         if((multe[i]["Tipo Sanzione"]=="Tributaria"))
             tributary+=parseInt(multe[i]["Numero Verbali"]);
+
+        if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
+            administrative+=parseInt(multe[i]["Numero Verbali"]);
     }
+
     tot=tributary+administrative;
     tributary=(tributary*100)/tot;
-    administrative=(administrative*100)/tot;
+    administrative=100-tributary;
 
     trace1.x.push("Torino");
     trace2.x.push("Torino");
     trace1.y.push(administrative);
     trace2.y.push(tributary);
 
-    for(j=0;j<quartiere.length;j++){
-        multe="";
+    for(j=0;j<selected.length;j++){
+        multe=[];
         nome_q="";
-        nome_s=quartiere[j].split("_");
+        nome_s=selected[j].split("_");
 
         if(nome_s.length==1){
             nome_q=nome_s[0];
@@ -163,6 +162,7 @@ function plotTypeSanction(div){
         if(nome_s.length==3){
             nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
         }
+
         multe=[];
         for (let i = 0; i < quartieri.length; i++){
             if(quartieri[i].getNome()==nome_q){
@@ -173,22 +173,22 @@ function plotTypeSanction(div){
         tributary=0;
         for(i=0;i<multe.length;i++)
         {
-            if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
-                administrative+=parseInt(multe[i]["Numero Verbali"]);
-
             if((multe[i]["Tipo Sanzione"]=="Tributaria"))
                 tributary+=parseInt(multe[i]["Numero Verbali"]);
+
+            if((multe[i]["Tipo Sanzione"]=="Amministrativa"))
+                administrative+=parseInt(multe[i]["Numero Verbali"]);
         }
     tot=tributary+administrative;
     tributary=(tributary*100)/tot;
-    administrative=(administrative*100)/tot;
+    administrative=100-tributary;
+
     trace1.x.push(nome_q);
     trace2.x.push(nome_q);
     trace1.y.push(administrative);
     trace2.y.push(tributary);
     }
 
-
     data=[trace1,trace2];
-    Plotly.newPlot(div,[data],layout);
+    Plotly.newPlot(div,data,layout);
 }

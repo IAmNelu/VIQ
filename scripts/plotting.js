@@ -1,9 +1,8 @@
-//to debug
-let quartiere=["Vanchiglia","Mirafiori_Nord","Cenisia_Cit_Turin"];
+let quartiere=[];
 
 function plotTimeSanction(div) {
 
-    let  months = [],data=[];
+    let  months = [];
     let multe=[];
     let j,i,m,g,tot,nome_s=[],nome_q;
 
@@ -16,22 +15,25 @@ function plotTimeSanction(div) {
 
     var trace=[{x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                 y:[],
-                type:'scatter'},
+                type:'scatter',
+                name: "Torino"},
               {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                y:[],
-               type:'scatter'},
+               type:'scatter',
+               name:""},
               {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                y:[],
-               type:'scatter'},
+               type:'scatter',
+               name:""},
               {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
                y:[],
-               type:'scatter'}];
+               type:'scatter',
+               name:""}];
 
     var layout={title:"Infrazioni Torino 2017",
         margin: {l: 45, r:20, b: 50, t:60},
         width:500,
         height:400,
-        xaxis: { title: "Mese"},
         yaxis: { title: "N° Infrazioni"}};
 
         //tutta torino
@@ -49,9 +51,9 @@ function plotTimeSanction(div) {
     for(m=0;m<12;m++){
         trace[0].y.push(months[m]);
     }
-    data.push(trace);
+
 // i singoli quartieri
-    if(quartiere!==undefined){
+
     for(j=0;j<quartiere.length;j++){
         //inizializzo i mesi
         for(m=0;m<12;m++)
@@ -62,7 +64,7 @@ function plotTimeSanction(div) {
         nome_s=quartiere[j].split("_");
 
         if(nome_s.length==1){
-            nome_q=nome_s;
+            nome_q=nome_s[0];
         }
         if(nome_s.length==2){
             nome_q=nome_s[0]+" "+nome_s[1];
@@ -70,9 +72,9 @@ function plotTimeSanction(div) {
         if(nome_s.length==3){
             nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
         }
-
+        multe=[];
         for ( i = 0; i < quartieri.length; i++){
-            if(quartieri[i].getNome()==nome_q)
+            if(quartieri[i].getNome()===nome_q)
             {
                 multe=multe.concat(quartieri[i]["reati"]);
             }
@@ -86,14 +88,15 @@ function plotTimeSanction(div) {
         for(m=0;m<12;m++){
             trace[j+1].y.push(months[m]);
         }
-        data.push(trace);
+        trace[j+1].name=nome_q;
     }
-    }
+
 
     Plotly.newPlot(div,trace,layout);
 }
+
 //to debug
-function plotTypeSanction(div,quartiere){
+function plotTypeSanction(div){
 
     let administrative=0;
     let tributary=0;
@@ -115,9 +118,9 @@ function plotTypeSanction(div,quartiere){
                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
 
     var trace2=[{x:[],
-        y:[],
-        type : 'bar',
-        marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
+                 y:[],
+                 type : 'bar',
+                 marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },}];
 
     var layout={height: 500,
                 width: 500,
@@ -146,14 +149,13 @@ function plotTypeSanction(div,quartiere){
     trace1.y.push(administrative);
     trace2.y.push(tributary);
 
-    if(quartiere!==undefined){
     for(j=0;j<quartiere.length;j++){
         multe="";
         nome_q="";
         nome_s=quartiere[j].split("_");
 
         if(nome_s.length==1){
-            nome_q=nome_s;
+            nome_q=nome_s[0];
         }
         if(nome_s.length==2){
             nome_q=nome_s[0]+" "+nome_s[1];
@@ -161,7 +163,7 @@ function plotTypeSanction(div,quartiere){
         if(nome_s.length==3){
             nome_q=nome_s[0]+" "+nome_s[1]+" "+nome_s[2];
         }
-
+        multe=[];
         for (let i = 0; i < quartieri.length; i++){
             if(quartieri[i].getNome()==nome_q){
                 multe=multe.concat(quartieri[i]["reati"]);
@@ -185,7 +187,7 @@ function plotTypeSanction(div,quartiere){
     trace1.y.push(administrative);
     trace2.y.push(tributary);
     }
-    }
+
 
     data=[trace1,trace2];
     Plotly.newPlot(div,[data],layout);

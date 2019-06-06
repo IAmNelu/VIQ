@@ -31,7 +31,7 @@ $( document ).ready(function() {
             let idText =  $(texts[i]).attr('id');
             let lun = idText.length;
             let idQuartiere = idText.substr(0,lun-2);
-            let quart =  $('#' + idQuartiere); //DA PROBLEMI SU ALCUNI QUARTIERI E SOLO ALCUNE VOLTE, NON RIESCE A LEGGERE LA LUNGHEZZA DI idText
+            let quart =  $('#' + idQuartiere);
             svg.appendChild(quart[0]);
             svg.appendChild(texts[i]);
             for(let i = 0; i < polys.length; i++) {

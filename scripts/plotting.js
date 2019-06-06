@@ -1,5 +1,7 @@
 //to debug
-function PlotTimeSanction(div,quartiere) {
+let quartiere=["Vanchiglia","Mirafiori_Nord","Cenisia_Cit_Turin"];
+
+function plotTimeSanction(div) {
 
     let  months = [],data=[];
     let multe=[];
@@ -12,11 +14,18 @@ function PlotTimeSanction(div,quartiere) {
         return;
     }
 
-
-    var trace={ x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-        y:[],
-        type:'scatter',
-        orientation:"v"};
+    var trace=[{x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+                y:[],
+                type:'scatter'},
+              {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+               y:[],
+               type:'scatter'},
+              {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+               y:[],
+               type:'scatter'},
+              {x:['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
+               y:[],
+               type:'scatter'}];
 
     var layout={title:"Infrazioni Torino 2017",
         margin: {l: 45, r:20, b: 50, t:60},
@@ -29,7 +38,6 @@ function PlotTimeSanction(div,quartiere) {
         for (i = 0; i < quartieri.length; i++){
             multe =multe.concat(quartieri[i]["reati"]);
         }
-
         for(m=0;m<12;m++){
         months[m]=0;
         }
@@ -38,9 +46,12 @@ function PlotTimeSanction(div,quartiere) {
         m=multe[i]["Mese Accertamento"]-1;
         months[m] += parseInt(multe[i]["Numero Verbali"]);
         }
-        trace.y.push(months);
-        data.push(trace);
+    for(m=0;m<12;m++){
+        trace[0].y.push(months[m]);
+    }
+    data.push(trace);
 // i singoli quartieri
+    if(quartiere!==undefined){
     for(j=0;j<quartiere.length;j++){
         //inizializzo i mesi
         for(m=0;m<12;m++)
@@ -72,14 +83,17 @@ function PlotTimeSanction(div,quartiere) {
             months[m] += parseInt(multe[i]["Numero Verbali"]);
         }
 
-        trace.y.push(months);
+        for(m=0;m<12;m++){
+            trace[j+1].y.push(months[m]);
+        }
         data.push(trace);
     }
+    }
 
-    Plotly.newPlot(div,[data],layout);
+    Plotly.newPlot(div,trace,layout);
 }
 //to debug
-function PlotTypeSanction(div,quartiere){
+function plotTypeSanction(div,quartiere){
 
     let administrative=0;
     let tributary=0;
@@ -132,6 +146,7 @@ function PlotTypeSanction(div,quartiere){
     trace1.y.push(administrative);
     trace2.y.push(tributary);
 
+    if(quartiere!==undefined){
     for(j=0;j<quartiere.length;j++){
         multe="";
         nome_q="";
@@ -170,6 +185,8 @@ function PlotTypeSanction(div,quartiere){
     trace1.y.push(administrative);
     trace2.y.push(tributary);
     }
+    }
+
     data=[trace1,trace2];
     Plotly.newPlot(div,[data],layout);
 }

@@ -1,7 +1,7 @@
 let polys = [];
 let texts = [];
 $( document ).ready(function() {
-    //mapColor(); // to debug 
+
     //adjustSize(); // to remove
     polys = $("polygon");
     texts = $("text");
@@ -71,7 +71,6 @@ $( document ).ready(function() {
             plotDiv.show();
         });
     }
-
 });
 
 function sparisciQuartiere(caller){
@@ -117,13 +116,10 @@ function mapColor(){
         if(nome_s.length==3){
             nome=nome_s[0]+"_"+nome_s[1]+"_"+nome_s[2];
         }
-
         mappa=document.getElementById(nome);
         n_multe=quartieri[i]["numeroInfrazioni"];
         t=(765*n_multe)/n_tot;
         tot=decimalToHex(127-t);
-        console.log("quartiere= "+nome);
-        console.log("t= "+t);
         colore="#ff"+tot+"00";
         $(mappa).css('fill',colore);
     }
@@ -146,8 +142,6 @@ function decimalToHex(decimal) {
 
     return conv;
 }
-
-
 
 function adjustZIndexing(){
     texts.forEach(element => {

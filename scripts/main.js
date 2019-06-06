@@ -13,7 +13,7 @@ function readAsync(){
         //--------------> funzione consumer
         //PlotTypeSanction("qui","San Paolo");
         //PlotTimeSanction("qui");
-       // MapColor();
+        //mapColor();
 
     });
 }

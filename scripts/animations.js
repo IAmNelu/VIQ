@@ -14,48 +14,39 @@ $( document ).ready(function() {
             let idText = '#' + idQuartiere + '_t';
             let text = $(idText);
             svg.appendChild(text[0]);
+            $(polys[i]).css("fill", "yellow");
+            $(polys[i]).css("stroke-width", "10px");
         });
         polys[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
-        })
-        $(polys[i]).mouseover(function () {
-            $( this ).css("fill", "yellow");
-            $( this).css("stroke-width", "10px");
-        }).mouseleave(function () {
-            $( this ).css("fill", "dodgerblue");
-            $( this).css("stroke-width", "2px");
+            $(polys[i]).css("fill", "dodgerblue");
+            $(polys[i]).css("stroke-width", "2px");
         });
-
         ///////////////////////////////////
+
         /*Hover su Text*/
         texts[i].addEventListener("mouseover", function(e) {
-            let idText =  $( e.target ).attr('id');
+            let idText =  $(texts[i]).attr('id');
             let lun = idText.length;
-            let idQuartiere = '#' + idText.substr(0,lun-2);
-            let quart =  $(idQuartiere); //DA PROBLEMI SU ALCUNI QUARTIERI E SOLO ALCUNE VOLTE, NON RIESCE A LEGGERE LA LUNGHEZZA DI idText
+            let idQuartiere = idText.substr(0,lun-2);
+            let quart =  $('#' + idQuartiere); //DA PROBLEMI SU ALCUNI QUARTIERI E SOLO ALCUNE VOLTE, NON RIESCE A LEGGERE LA LUNGHEZZA DI idText
             svg.appendChild(quart[0]);
-            svg.appendChild(e.target);
-        })
+            svg.appendChild(texts[i]);
+            for(let i = 0; i < polys.length; i++) {
+                if (idQuartiere === $(polys[i]).attr('id')) {
+                    $(polys[i]).css("stroke-width", "10px");
+                    $(polys[i]).css("fill", "yellow");
+                    break;
+                }
+            }
+        });
         texts[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
-        })
-        $(texts[i]).mouseover(function () {
-            let idQuartiere =  $( this ).attr('id');
-            let lun = idQuartiere.length;
-            idQuartiere = idQuartiere.substr(0,lun-2);
-            for(let i = 0; i < polys.length; i++){
-               if(idQuartiere === $(polys[i]).attr('id')){
-                   $(polys[i]).css("stroke-width", "10px");
-                   $(polys[i]).css("fill", "yellow");
-                   break;
-               }
-           }
-        }).mouseleave(function () {
-            let idQuartiere =  $( this ).attr('id');
+            let idQuartiere =  $(texts[i]).attr('id');
             let lun = idQuartiere.length;
             idQuartiere = idQuartiere.substr(0,lun-2);
             for(let i = 0; i < polys.length; i++){
@@ -65,7 +56,7 @@ $( document ).ready(function() {
                     break;
                 }
             }
-        });
+        })
         ///////////////////////////////////
 
         $(polys[i]).click(function () {

@@ -31,7 +31,8 @@ function plotTimeSanction(div) {
         margin: {l: 45, r:20, b: 50, t:60},
         width:500,
         height:400,
-        yaxis: { title: "N° Infrazioni"}};
+        yaxis: { title: "N° Infrazioni"},
+        yaxis: {range: [0,1000]}};
 
         //tutta torino
         for (i = 0; i < quartieri.length; i++){
@@ -191,4 +192,50 @@ function plotTypeSanction(div){
 
     data=[trace1,trace2];
     Plotly.newPlot(div,data,layout);
+}
+
+function plotNeighborhoodSanction(div) {
+
+    var nbh=[],number=[],j,i,temp;
+
+    if(div===undefined)
+    {
+        console.log("manca il div");
+        return;
+    }
+
+    var trace={x:[],
+               y:[],
+               type: 'bar',
+               name:"Quartieri",
+               marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },};
+
+    var layout={bargap:0.05};
+
+    for (i = 0; i < quartieri.length; i++){
+        nbh[i]=quartieri[i].getNome();
+        number[i]=quartieri[i].getNumberInfrazioni();
+    }
+
+    for(i=0;i<nbh.length;i++){
+        for(j=0;j<nbh.length-1;j++){
+          if(number[i]>number[j]){
+              temp=nbh[i];
+              nbh[i]=nbh[j];
+              nbh[j]=temp;
+
+              temp=number[i];
+              number[i]=number[j];
+              number[j]=temp;
+          }
+        }
+
+    }
+
+    for (let i = 0; i < quartieri.length; i++){
+        trace.x.push(nbh[i]);
+        trace.y.push(number[i]);
+    }
+
+    Plotly.newPlot(div,[trace],layout);
 }

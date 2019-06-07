@@ -9,10 +9,6 @@ function readAsync(){
         let item = data[0];
         keys = Object.keys(item);
         //--------------> funzione consumer
-        //PlotTypeSanction("qui","San Paolo");
-        //PlotTimeSanction("qui");
-        //mapColor();
-
     });
 }
 

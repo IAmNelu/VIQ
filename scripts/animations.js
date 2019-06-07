@@ -75,6 +75,10 @@ $(document).ready(function () {
     }
     window.setTimeout("mapColor()", 300);
     window.setTimeout("colorQuartieri()", 305);
+    window.setTimeout("plotTimeSanction('turin_temp')", 305);
+    window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 310);
+    window.setTimeout("plotTypeSanction('turin_type')", 315);
+
 });
 
 function sparisciQuartiere(caller) {

@@ -11,39 +11,40 @@ function plotTimeSanction(div) {
     }
 
     var trace = [{
-            x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-            y: [],
-            type: 'scatter',
-            name: "Torino"
-        },
+        x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+        y: [],
+        type: 'scatter',
+        name: "Torino",
+        marker: {color: 'rgb(215, 25, 28)'}},
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
-            name: ""
-        },
+            name: "",
+            marker: {color: 'rgb(253, 174, 97)'}},
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
-            name: ""
-        },
+            name: "",
+            marker: {color: 'rgb(166, 217, 106)'}},
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
-            name: ""
-        }
-    ];
+            name: "",
+            marker: {color: 'rgb(26, 150, 65)'}}];
 
     var layout = {
-        title: "Infrazioni Torino 2017",
-        margin: { l: 45, r: 20, b: 50, t: 60 },
+        margin: {l:50,r:20,t:60,b:50},
         width: 600,
-        height: 250,
-        yaxis: { title: "N° Infrazioni" },
-        yaxis: { range: [0, 1000] }
-    };
+        height: 400,
+        showlegend: true,
+        legend:{y:1, x:0.1,
+            orientation:"h",
+            yanchor:"bottom"},
+        yaxis: { range: [0, 920],
+            title:"N° Infrazioni"}};
 
     //tutta torino
     for (i = 0; i < quartieri.length; i++) {
@@ -123,22 +124,20 @@ function plotTypeSanction(div) {
         y: [],
         type: 'bar',
         name: "Amministative",
-        marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },
-    };
+        marker: { color: 'rgb(26, 150, 65)' }};
 
     var trace2 = {
         x: [],
         y: [],
         type: 'bar',
         name: "Tributarie",
-        marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },
-    };
+        marker: { color: 'rgb(215, 25, 28)' }};
 
     var layout = {
-        height: 500,
+        height: 200,
         width: 600,
-        barmode: 'stack'
-    };
+        margin : {t:20,b:120,r:10,l:40},
+        barmode: 'stack'};
 
     //tutta torino
     for (i = 0; i < quartieri.length; i++) {
@@ -211,7 +210,7 @@ function plotNeighborhoodSanction(div) {
 
     var nbh = [],
         number = [],
-        j, i, temp;
+        j, i, temp,tot=0;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -223,16 +222,26 @@ function plotNeighborhoodSanction(div) {
         y: [],
         type: 'bar',
         name: "Quartieri",
-        marker: { colors: ['rgb(255, 0, 0)', 'rgb(0, 0, 255)'] },
-    };
+        showlegend: false,
+        marker: { color:'rgb(103, 169, 207)' }};
 
-    var layout = { bargap: 0.05 };
+    var trace2={x: [],
+        y: [],
+        type: 'scatter',
+        name: "Media",
+        marker: { color:'rgb(215, 25, 28)'}};
+
+    var layout = { bargap: 0.05,
+        yaxis: { range: [0, 1005],
+            title:"N° Infrazioni"},
+        legend:{y:0.43,x:0.9 }};
 
     for (i = 0; i < quartieri.length; i++) {
         nbh[i] = quartieri[i].getNome();
         number[i] = quartieri[i].getNumberInfrazioni();
+        tot +=number[i];
     }
-
+    tot=tot/nbh.length;
     for (i = 0; i < nbh.length; i++) {
         for (j = 0; j < nbh.length - 1; j++) {
             if (number[i] > number[j]) {
@@ -250,8 +259,10 @@ function plotNeighborhoodSanction(div) {
 
     for (let i = 0; i < quartieri.length; i++) {
         trace.x.push(nbh[i]);
+        trace2.x.push(nbh[i]);
         trace.y.push(number[i]);
+        trace2.y.push(tot);
     }
-
-    Plotly.newPlot(div, [trace], layout);
+    var data=[trace, trace2];
+    Plotly.newPlot(div,data, layout);
 }

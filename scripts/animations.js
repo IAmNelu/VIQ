@@ -58,8 +58,8 @@ function mapColor() {
     for (let i = 0; i < quartieri.length; i++) {
         nome = getIdFromNomeQuartiere(quartieri[i].getNome());
         n_multe = quartieri[i]["numeroInfrazioni"];
-        t = (765 * n_multe) / n_tot;
-        tot = decimalToHex(127 - t);
+        t = (1530 * n_multe) / n_tot;
+        tot = decimalToHex(255 - t);
         colore = "#ff" + tot + "00";
         quartieri[i].setColore(colore);
     }
@@ -226,6 +226,9 @@ function set_page_event_listeners() {
             if (!isIn(idQuartiere)) {
                 $(texts[i]).css("fill", "black");
             }
+            plotTimeSanction('turin_temp');
+            plotTypeSanction('turin_type');
+
             plotDiv.show();
         });
         $(texts[i]).click(function() {
@@ -241,6 +244,8 @@ function set_page_event_listeners() {
             if (!isIn(idQuartiere)) {
                 $(texts[i]).css("fill", "black");
             }
+            plotTimeSanction('turin_temp');
+            plotTypeSanction('turin_type');
             plotDiv.show();
         });
     }

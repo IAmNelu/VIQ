@@ -22,8 +22,12 @@ $(document).ready(function() {
                 svg.appendChild(texts[i]);
             }
             colorQuartieri();
+            if(!isIn( $(polys[i]).attr('id'))){
+                $(texts[i]).css("font-size", "14pt");
+                $(texts[i]).css("fill", "black");
+            }
             $(polys[i]).css("stroke-width", "2px");
-            $(texts[i]).css("font-size", "14pt");
+            $(polys[i]).css("stroke", "beige");
         });
         ///////////////////////////////////
 
@@ -38,6 +42,7 @@ $(document).ready(function() {
             for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "10px");
+                    $(polys[i]).css("stroke", "beige");
                     $(polys[i]).css("fill", "yellow");
                     $(texts[i]).css("font-size", "22pt");
                     break;
@@ -54,22 +59,48 @@ $(document).ready(function() {
             idQuartiere = idQuartiere.substr(0, lun - 2);
             for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
+                    if(!isIn(idQuartiere)){
+                        $(texts[i]).css("font-size", "14pt");
+                        $(texts[i]).css("fill", "black");
+                    }
                     $(polys[i]).css("stroke-width", "2px");
-                    $(texts[i]).css("font-size", "14pt");
+                    $(polys[i]).css("stroke", "beige");
                     break;
                 }
             }
         });
         ///////////////////////////////////
         $(polys[i]).click(function() {
+            let idQuartiere = $(polys[i]).attr('id');
+            let idText =  idQuartiere + '_t';
+            for (let i = 0; i < texts.length; i++) {
+                if (idText === $(texts[i]).attr('id')) {
+                    $(texts[i]).css("font-size", "22pt");
+                    $(texts[i]).css("fill", "#03F500");
+                    //#1a34dd
+                    break;
+                }
+            }
             let plotDiv = $('#district_graph');
             aggiungiTogliSelected(this.id);
+            if(!isIn(idQuartiere)){
+                $(texts[i]).css("fill", "black");
+            }
             plotDiv.show();
         });
         $(texts[i]).click(function() {
+            let idText = $(texts[i]).attr('id');
+            let lun = idText.length;
+            let idQuartiere = idText.substr(0, lun - 2);
+            $(texts[i]).css("font-size", "22pt");
+            $(texts[i]).css("fill", "#03F500");
+            //#1a34dd
             let plotDiv = $('#district_graph');
             let polyid = this.id.substring(0, this.id.length - 2);
             aggiungiTogliSelected(polyid);
+            if(!isIn(idQuartiere)){
+                $(texts[i]).css("fill", "black");
+            }
             plotDiv.show();
         });
     }
@@ -78,7 +109,17 @@ $(document).ready(function() {
     window.setTimeout("plotTimeSanction('turin_temp')", 155);
     window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
     window.setTimeout("plotTypeSanction('turin_type')", 165);
-
+    window.onresize = function() {
+        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        svg = $("#map_container");
+        graphs_dx = $("#wrapper_destra");
+        if(width <= 720){
+           $(graphs_dx).insertAfter($(svg));
+        }
+        else if(width > 720){
+            $(svg).insertAfter($(graphs_dx));
+        }
+    };
 });
 
 function sparisciQuartiere(caller) {

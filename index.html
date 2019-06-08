@@ -9,6 +9,10 @@
 
 <body onload="readAsync()">
     <h1 class="titolo">Infrazioni Torino</h1>
+    <div class="wrapper_destra">
+        <div class="graph_data" id="turin_temp"></div>
+        <div class="graph_data" id="turin_type"></div>
+    </div>
     <div class="wrapper_map" id="map_container">
         <svg width="100%" height="100%" viewBox="0 0 1166 1120" preserveAspectRatio="none">
             <defs>
@@ -16,6 +20,10 @@
                   <feFlood flood-color="rgba(255, 255, 255, 0.5)"/>
                   <feComposite in="SourceGraphic"/> <!-- operator="or"   -->
                 </filter>
+                <linearGradient id="legenda" x1="50%" y1="0%" x2="50%" y2="100%" > 
+                    <stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgb(255,130,0);stop-opacity:1" />
+                </linearGradient> 
               </defs>
 
             <polygon id="Villaretto_Falchera_Rebaudengo" class="quartiere"
@@ -102,6 +110,10 @@
                 points="67,797,237,904,291,873,394,922,349,979,372,991,397,1015,427,1023,439,987,482,1008,488,1032,467,1110,445,1095,427,1101,416,1106,398,1110,387,1102,375,1090,362,1093,350,1092,341,1081,325,1080,315,1080,307,1087,295,1092,279,1097,248,1082,226,1073,203,1080,183,1071,165,1061,150,1053,136,1064,123,1064,124,1044,116,1041,106,1047,96,1040,83,1032,99,1022,109,1005,148,1009,184,923,154,932,139,918,129,917,60,869,49,866,15,823,28,802,51,818">
             </polygon>
 
+            <rect id="legenda_r" class="quartiere"
+                x="1026" y="780" width="80" height="350" fill="url(#legenda)">
+            </rect>
+
             <text id="Villaretto_Falchera_Rebaudengo_t" x="480" y="150" class="text_map">Villaretto Falchera Rebaudengo</text><!-- filter="url(#solid)"  aggiungi dentro text tag  -->
             <text id="Borgo_Vittoria_t" x="585" y="315" class="text_map">Borgo
                 <tspan x="575" y="345">Vittoria</tspan></text>
@@ -138,9 +150,10 @@
             <text id="Mirafiori_Sud_t" x="200" y="1020" class="text_map">Mirafiori Sud </text>
         </svg>
     </div>
+
     <div class="graph_data" id="turin_quartieri"></div>
-    <div class="graph_data" id="turin_temp"></div>
-    <div class="graph_data" id="turin_type"></div>
+
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>

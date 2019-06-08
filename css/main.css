@@ -1,29 +1,57 @@
-html,body{height:100%}
-.wrapper_map {
-    width: 60%;
-    margin: 0 auto;
+html,
+body {
+    height: 100%
 }
-polygon{
+
+polygon {
     stroke: beige;
     stroke-width: 2px;
     fill: grey;
 }
-.text_map{
+
+.text_map {
     fill: black;
     font: bold 14pt sans-serif;
     /*text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;*/
 }
-#district_graph{
+
+#district_graph {
     display: none;
 }
-.sm_txt{
+
+.sm_txt {
     font-size: 14pt;
 }
 
-#map_container{
-    width: 43%;
-    margin-left: 5%;
-}
-text{
+text {
     background-color: beige;
+}
+
+.wrapper_map {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.graph_data {
+    position: relative;
+}
+
+#map_container {
+    width: 50%;
+}
+
+h1 {
+    text-align: center;
+}
+
+@media only screen and (min-width: 800px) {
+    #map_container {
+        width: 42%;
+        margin-left: 2%;
+    }
+    .wrapper_destra {
+        width: 45%;
+        margin-right: 5%;
+        float: right;
+    }
 }

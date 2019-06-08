@@ -1,13 +1,13 @@
 let polys = [];
 let texts = [];
 let selected = [];
-$(document).ready(function () {
+$(document).ready(function() {
     polys = $("polygon");
     texts = $("text");
     svg = document.querySelector("svg");
     for (let i = 0; i < polys.length; i++) {
         /*Hover su Polygon*/
-        polys[i].addEventListener("mouseover", function (e) { //hovering done right
+        polys[i].addEventListener("mouseover", function(e) { //hovering done right
             svg.appendChild(e.target);
             let idQuartiere = $(e.target).attr('id');
             let idText = '#' + idQuartiere + '_t';
@@ -15,20 +15,20 @@ $(document).ready(function () {
             svg.appendChild(text[0]);
             $(polys[i]).css("fill", "yellow");
             $(polys[i]).css("stroke-width", "10px");
-            $(texts[i]).css("font-size","22pt");
+            $(texts[i]).css("font-size", "22pt");
         });
-        polys[i].addEventListener("mouseleave", function (e) {
+        polys[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
             colorQuartieri();
             $(polys[i]).css("stroke-width", "2px");
-            $(texts[i]).css("font-size","14pt");
+            $(texts[i]).css("font-size", "14pt");
         });
         ///////////////////////////////////
 
         /*Hover su Text*/
-        texts[i].addEventListener("mouseover", function (e) {
+        texts[i].addEventListener("mouseover", function(e) {
             let idText = $(texts[i]).attr('id');
             let lun = idText.length;
             let idQuartiere = idText.substr(0, lun - 2);
@@ -39,12 +39,12 @@ $(document).ready(function () {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "10px");
                     $(polys[i]).css("fill", "yellow");
-                    $(texts[i]).css("font-size","22pt");
+                    $(texts[i]).css("font-size", "22pt");
                     break;
                 }
             }
         });
-        texts[i].addEventListener("mouseleave", function (e) {
+        texts[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
@@ -55,29 +55,29 @@ $(document).ready(function () {
             for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "2px");
-                    $(texts[i]).css("font-size","14pt");
+                    $(texts[i]).css("font-size", "14pt");
                     break;
                 }
             }
         });
         ///////////////////////////////////
-        $(polys[i]).click(function () {
+        $(polys[i]).click(function() {
             let plotDiv = $('#district_graph');
             aggiungiTogliSelected(this.id);
             plotDiv.show();
         });
-        $(texts[i]).click(function () {
+        $(texts[i]).click(function() {
             let plotDiv = $('#district_graph');
-            let polyid= this.id.substring(0, this.id.length-2);
+            let polyid = this.id.substring(0, this.id.length - 2);
             aggiungiTogliSelected(polyid);
             plotDiv.show();
         });
     }
-    window.setTimeout("mapColor()", 300);
-    window.setTimeout("colorQuartieri()", 305);
-    window.setTimeout("plotTimeSanction('turin_temp')", 305);
-    window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 310);
-    window.setTimeout("plotTypeSanction('turin_type')", 315);
+    window.setTimeout("mapColor()", 150);
+    window.setTimeout("colorQuartieri()", 155);
+    window.setTimeout("plotTimeSanction('turin_temp')", 155);
+    window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
+    window.setTimeout("plotTypeSanction('turin_type')", 165);
 
 });
 
@@ -103,7 +103,8 @@ function adjustSize() {
 }
 
 function mapColor() {
-    let colore, t, n_multe, n_tot = 0, tot = 0;
+    let colore, t, n_multe, n_tot = 0,
+        tot = 0;
     for (let i = 0; i < quartieri.length; i++) {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
     }
@@ -120,12 +121,12 @@ function mapColor() {
 
 function decimalToHex(decimal) {
     var hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
-    var conv = "", r1, r2, ris;
+    var conv = "",
+        r1, r2, ris;
     decimal = Math.floor(decimal);
     if (decimal < 16) {
         conv = "0" + hex[decimal];
-    }
-    else {
+    } else {
         r1 = Math.floor(decimal % 16);
         ris = Math.floor(decimal / 16);
         r2 = Math.floor(ris % 16);
@@ -163,32 +164,32 @@ function colorQuartieri() {
     }
 }
 
-function isIn(quartiere_s){
-    for(let i = 0; i < selected.length; i++){
-        if (selected[i] === quartiere_s){
+function isIn(quartiere_s) {
+    for (let i = 0; i < selected.length; i++) {
+        if (selected[i] === quartiere_s) {
             return true;
         }
     }
     return false;
 }
 
-function aggiungiTogliSelected(id_quartiere){
+function aggiungiTogliSelected(id_quartiere) {
     let new_array = [];
-    if(isIn(id_quartiere)){ 
-        while(selected.length > 0){
+    if (isIn(id_quartiere)) {
+        while (selected.length > 0) {
             let ele = selected.pop();
-            if(ele !== id_quartiere){
+            if (ele !== id_quartiere) {
                 new_array.push(ele);
             }
         }
         selected = new_array;
-    }else{
-        if(selected.length < 3){
+    } else {
+        if (selected.length < 3) {
             selected.push(id_quartiere);
-        }else{
+        } else {
             alert('You can confrontare massimo three quartieri')
         }
-        
+
     }
     console.log(selected);
 }

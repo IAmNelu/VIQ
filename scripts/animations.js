@@ -2,123 +2,25 @@ let polys = [];
 let texts = [];
 let selected = [];
 $(document).ready(function() {
-    polys = $("polygon");
-    texts = $("text");
-    svg = document.querySelector("svg");
-    for (let i = 0; i < polys.length; i++) {
-        /*Hover su Polygon*/
-        polys[i].addEventListener("mouseover", function(e) { //hovering done right
-            svg.appendChild(e.target);
-            let idQuartiere = $(e.target).attr('id');
-            let idText = '#' + idQuartiere + '_t';
-            let text = $(idText);
-            svg.appendChild(text[0]);
-            $(polys[i]).css("fill", "yellow");
-            $(polys[i]).css("stroke-width", "10px");
-            $(texts[i]).css("font-size", "22pt");
-        });
-        polys[i].addEventListener("mouseleave", function(e) {
-            for (let i = 0; i < polys.length; i++) {
-                svg.appendChild(texts[i]);
-            }
-            colorQuartieri();
-            if(!isIn( $(polys[i]).attr('id'))){
-                $(texts[i]).css("font-size", "14pt");
-                $(texts[i]).css("fill", "black");
-            }
-            $(polys[i]).css("stroke-width", "2px");
-            $(polys[i]).css("stroke", "beige");
-        });
-        ///////////////////////////////////
-
-        /*Hover su Text*/
-        texts[i].addEventListener("mouseover", function(e) {
-            let idText = $(texts[i]).attr('id');
-            let lun = idText.length;
-            let idQuartiere = idText.substr(0, lun - 2);
-            let quart = $('#' + idQuartiere);
-            svg.appendChild(quart[0]);
-            svg.appendChild(texts[i]);
-            for (let i = 0; i < polys.length; i++) {
-                if (idQuartiere === $(polys[i]).attr('id')) {
-                    $(polys[i]).css("stroke-width", "10px");
-                    $(polys[i]).css("stroke", "beige");
-                    $(polys[i]).css("fill", "yellow");
-                    $(texts[i]).css("font-size", "22pt");
-                    break;
-                }
-            }
-        });
-        texts[i].addEventListener("mouseleave", function(e) {
-            for (let i = 0; i < polys.length; i++) {
-                svg.appendChild(texts[i]);
-            }
-            let idQuartiere = $(texts[i]).attr('id');
-            let lun = idQuartiere.length;
-            colorQuartieri();
-            idQuartiere = idQuartiere.substr(0, lun - 2);
-            for (let i = 0; i < polys.length; i++) {
-                if (idQuartiere === $(polys[i]).attr('id')) {
-                    if(!isIn(idQuartiere)){
-                        $(texts[i]).css("font-size", "14pt");
-                        $(texts[i]).css("fill", "black");
-                    }
-                    $(polys[i]).css("stroke-width", "2px");
-                    $(polys[i]).css("stroke", "beige");
-                    break;
-                }
-            }
-        });
-        ///////////////////////////////////
-        $(polys[i]).click(function() {
-            let idQuartiere = $(polys[i]).attr('id');
-            let idText =  idQuartiere + '_t';
-            for (let i = 0; i < texts.length; i++) {
-                if (idText === $(texts[i]).attr('id')) {
-                    $(texts[i]).css("font-size", "22pt");
-                    $(texts[i]).css("fill", "#03F500");
-                    //#1a34dd
-                    break;
-                }
-            }
-            let plotDiv = $('#district_graph');
-            aggiungiTogliSelected(this.id);
-            if(!isIn(idQuartiere)){
-                $(texts[i]).css("fill", "black");
-            }
-            plotDiv.show();
-        });
-        $(texts[i]).click(function() {
-            let idText = $(texts[i]).attr('id');
-            let lun = idText.length;
-            let idQuartiere = idText.substr(0, lun - 2);
-            $(texts[i]).css("font-size", "22pt");
-            $(texts[i]).css("fill", "#03F500");
-            //#1a34dd
-            let plotDiv = $('#district_graph');
-            let polyid = this.id.substring(0, this.id.length - 2);
-            aggiungiTogliSelected(polyid);
-            if(!isIn(idQuartiere)){
-                $(texts[i]).css("fill", "black");
-            }
-            plotDiv.show();
-        });
-    }
+    set_page_event_listeners();
     window.setTimeout("mapColor()", 150);
     window.setTimeout("colorQuartieri()", 155);
     window.setTimeout("plotTimeSanction('turin_temp')", 155);
     window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
     window.setTimeout("plotTypeSanction('turin_type')", 165);
     window.onresize = function() {
-        var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        svg = $("#map_container");
-        graphs_dx = $("#wrapper_destra");
-        if(width <= 720){
-           $(graphs_dx).insertAfter($(svg));
+        let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        console.log(width);
+        let capo = $('#top_part')[0];
+        let svg_l = $("#map_container")[0];
+        let graphs_dx_l = $("#wrapper_destra")[0];
+        if (width <= 800) {
+            capo.appendChild(graphs_dx_l);
+        } else {
+            capo.appendChild(svg_l);
         }
-        else if(width > 720){
-            $(svg).insertAfter($(graphs_dx));
-        }
+        document.getElementById("top_part").contentWindow.location.reload(true);
+        set_page_event_listeners();
     };
 });
 
@@ -233,4 +135,109 @@ function aggiungiTogliSelected(id_quartiere) {
 
     }
     console.log(selected);
+}
+
+function set_page_event_listeners() {
+    polys = $("polygon");
+    texts = $("text");
+    svg = document.querySelector("svg");
+    for (let i = 0; i < polys.length; i++) {
+        /*Hover su Polygon*/
+        polys[i].addEventListener("mouseover", function(e) { //hovering done right
+            svg.appendChild(e.target);
+            let idQuartiere = $(e.target).attr('id');
+            let idText = '#' + idQuartiere + '_t';
+            let text = $(idText);
+            svg.appendChild(text[0]);
+            $(polys[i]).css("fill", "yellow");
+            $(polys[i]).css("stroke-width", "10px");
+            $(texts[i]).css("font-size", "22pt");
+        });
+        polys[i].addEventListener("mouseleave", function(e) {
+            for (let i = 0; i < polys.length; i++) {
+                svg.appendChild(texts[i]);
+            }
+            colorQuartieri();
+            if (!isIn($(polys[i]).attr('id'))) {
+                $(texts[i]).css("font-size", "14pt");
+                $(texts[i]).css("fill", "black");
+            }
+            $(polys[i]).css("stroke-width", "2px");
+            $(polys[i]).css("stroke", "beige");
+        });
+        ///////////////////////////////////
+
+        /*Hover su Text*/
+        texts[i].addEventListener("mouseover", function(e) {
+            let idText = $(texts[i]).attr('id');
+            let lun = idText.length;
+            let idQuartiere = idText.substr(0, lun - 2);
+            let quart = $('#' + idQuartiere);
+            svg.appendChild(quart[0]);
+            svg.appendChild(texts[i]);
+            for (let i = 0; i < polys.length; i++) {
+                if (idQuartiere === $(polys[i]).attr('id')) {
+                    $(polys[i]).css("stroke-width", "10px");
+                    $(polys[i]).css("stroke", "beige");
+                    $(polys[i]).css("fill", "yellow");
+                    $(texts[i]).css("font-size", "22pt");
+                    break;
+                }
+            }
+        });
+        texts[i].addEventListener("mouseleave", function(e) {
+            for (let i = 0; i < polys.length; i++) {
+                svg.appendChild(texts[i]);
+            }
+            let idQuartiere = $(texts[i]).attr('id');
+            let lun = idQuartiere.length;
+            colorQuartieri();
+            idQuartiere = idQuartiere.substr(0, lun - 2);
+            for (let i = 0; i < polys.length; i++) {
+                if (idQuartiere === $(polys[i]).attr('id')) {
+                    if (!isIn(idQuartiere)) {
+                        $(texts[i]).css("font-size", "14pt");
+                        $(texts[i]).css("fill", "black");
+                    }
+                    $(polys[i]).css("stroke-width", "2px");
+                    $(polys[i]).css("stroke", "beige");
+                    break;
+                }
+            }
+        });
+        ///////////////////////////////////
+        $(polys[i]).click(function() {
+            let idQuartiere = $(polys[i]).attr('id');
+            let idText = idQuartiere + '_t';
+            for (let i = 0; i < texts.length; i++) {
+                if (idText === $(texts[i]).attr('id')) {
+                    $(texts[i]).css("font-size", "22pt");
+                    $(texts[i]).css("fill", "#03F500");
+                    //#1a34dd
+                    break;
+                }
+            }
+            let plotDiv = $('#district_graph');
+            aggiungiTogliSelected(this.id);
+            if (!isIn(idQuartiere)) {
+                $(texts[i]).css("fill", "black");
+            }
+            plotDiv.show();
+        });
+        $(texts[i]).click(function() {
+            let idText = $(texts[i]).attr('id');
+            let lun = idText.length;
+            let idQuartiere = idText.substr(0, lun - 2);
+            $(texts[i]).css("font-size", "22pt");
+            $(texts[i]).css("fill", "#03F500");
+            //#1a34dd
+            let plotDiv = $('#district_graph');
+            let polyid = this.id.substring(0, this.id.length - 2);
+            aggiungiTogliSelected(polyid);
+            if (!isIn(idQuartiere)) {
+                $(texts[i]).css("fill", "black");
+            }
+            plotDiv.show();
+        });
+    }
 }

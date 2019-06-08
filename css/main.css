@@ -49,7 +49,7 @@ h1 {
         width: 42%;
         margin-left: 2%;
     }
-    .wrapper_destra {
+    #wrapper_destra {
         width: 45%;
         margin-right: 5%;
         float: right;

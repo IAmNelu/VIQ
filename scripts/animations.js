@@ -8,21 +8,25 @@ $(document).ready(function() {
     window.setTimeout("plotTimeSanction('turin_temp')", 155);
     window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
     window.setTimeout("plotTypeSanction('turin_type')", 165);
-    window.onresize = function() {
-        let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        console.log(width);
-        let capo = $('#top_part')[0];
-        let svg_l = $("#map_container")[0];
-        let graphs_dx_l = $("#wrapper_destra")[0];
-        if (width <= 800) {
-            capo.appendChild(graphs_dx_l);
-        } else {
-            capo.appendChild(svg_l);
-        }
-        document.getElementById("top_part").contentWindow.location.reload(true);
-        set_page_event_listeners();
-    };
+    window.onresize = setta_responsivita;
+    setta_responsivita();
+
 });
+
+function setta_responsivita() {
+    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    console.log(width);
+    let capo = $('#top_part')[0];
+    let svg_l = $("#map_container")[0];
+    let graphs_dx_l = $("#wrapper_destra")[0];
+    if (width <= 800) {
+        capo.appendChild(graphs_dx_l);
+    } else {
+        capo.appendChild(svg_l);
+    }
+    document.getElementById("top_part").contentWindow.location.reload(true);
+    set_page_event_listeners();
+}
 
 function sparisciQuartiere(caller) {
 

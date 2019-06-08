@@ -143,7 +143,7 @@ function aggiungiTogliSelected(id_quartiere) {
 
 function set_page_event_listeners() {
     polys = $("polygon");
-    texts = $("text");
+    texts = $(".text_map");
     svg = document.querySelector("svg");
     for (let i = 0; i < polys.length; i++) {
         /*Hover su Polygon*/

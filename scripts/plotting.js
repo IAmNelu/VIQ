@@ -133,6 +133,7 @@ function plotTypeSanction(div,span) {
         name: "Amministrative",
         marker: { color: 'rgb(26, 150, 65)' }};
 
+
     var trace2 = {
         x: [],
         y: [],

@@ -217,7 +217,7 @@ function set_page_event_listeners() {
                 if (idText === $(texts[i]).attr('id')) {
                     $(texts[i]).css("font-size", "22pt");
                     $(texts[i]).css("fill", "#03F500");
-                    //#1a34dd
+                    $(texts[i]).css("text-shadow", " -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black");
                     break;
                 }
             }
@@ -225,6 +225,7 @@ function set_page_event_listeners() {
             aggiungiTogliSelected(this.id);
             if (!isIn(idQuartiere)) {
                 $(texts[i]).css("fill", "black");
+                $(texts[i]).css("text-shadow", " none");
             }
             plotTimeSanction('turin_temp');
             plotTypeSanction('turin_type');
@@ -237,12 +238,13 @@ function set_page_event_listeners() {
             let idQuartiere = idText.substr(0, lun - 2);
             $(texts[i]).css("font-size", "22pt");
             $(texts[i]).css("fill", "#03F500");
-            //#1a34dd
+            $(texts[i]).css("text-shadow", " -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black");
             let plotDiv = $('#district_graph');
             let polyid = this.id.substring(0, this.id.length - 2);
             aggiungiTogliSelected(polyid);
             if (!isIn(idQuartiere)) {
                 $(texts[i]).css("fill", "black");
+                $(texts[i]).css("text-shadow", " none");
             }
             plotTimeSanction('turin_temp');
             plotTypeSanction('turin_type');

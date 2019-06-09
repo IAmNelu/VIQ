@@ -8,17 +8,18 @@ $(document).ready(function() {
     window.setTimeout("plotTimeSanction('turin_temp')", 155);
     window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
     window.setTimeout("plotTypeSanction('turin_type')", 165);
-    window.onresize = setta_responsivita;
-    setta_responsivita();
+    //window.onresize = function() { setta_responsivita(); };
+    //setta_responsivita();
 
 });
 
+// TO EDIT A LOT
 function setta_responsivita() {
     let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     console.log(width);
-    let capo = $('#top_part')[0];
-    let svg_l = $("#map_container")[0];
-    let graphs_dx_l = $("#wrapper_destra")[0];
+    let capo = document.querySelector("#top_part");
+    let svg_l = document.querySelector("#map_container");
+    let graphs_dx_l = document.querySelector("#wrapper_destra");
     if (width <= 800) {
         capo.appendChild(graphs_dx_l);
     } else {

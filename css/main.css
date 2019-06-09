@@ -12,15 +12,10 @@ polygon {
 .text_map {
     fill: black;
     font: bold 14pt sans-serif;
-    /*text-shadow: -0.5px 0 white, 0 0.5px white, 0.5px 0 white, 0 -0.5px white;*/
 }
 
 #district_graph {
     display: none;
-}
-
-.sm_txt {
-    font-size: 14pt;
 }
 
 text {
@@ -42,6 +37,7 @@ text {
 
 h1 {
     text-align: center;
+    font-family: sans-serif;
 }
 
 .text_legend {
@@ -49,14 +45,34 @@ h1 {
     font: bold 14pt sans-serif;
 }
 
+#top_part {
+    display: flex;
+    flex-direction: column;
+}
+
+#map_container {
+    width: 100%;
+    height: auto;
+}
+
 @media only screen and (min-width: 800px) {
     #map_container {
         width: 42%;
+        height: auto;
         margin-left: 2%;
     }
     #wrapper_destra {
+        height: auto;
         width: 45%;
         margin-right: 5%;
-        float: right;
+    }
+    #info {
+        margin: auto;
+        width: 80%;
+        font-size: 14pt;
+    }
+    #top_part {
+        display: flex;
+        flex-direction: row;
     }
 }

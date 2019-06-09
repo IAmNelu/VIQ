@@ -9,11 +9,11 @@
 
 <body onload="readAsync()">
     <h1 class="titolo">Infrazioni Torino</h1>
+    <div id="info">Per poter confrontare più quartierei contemporanemante cliccare sopra il quartiere desiderato: è possibile confrontare un massimo di tre quartieri per volta. Per deselezionare un quartiere ed escluderlo dalla rappresentazione basterà cliccarci nuovamente
+        sopra. Scorrere la pagina per vedere il numero di infrazioni per ogni singolo quartiere.
+    </div>
     <div id="top_part">
-        <div id="wrapper_destra">
-            <div class="graph_data" id="turin_temp"></div>
-            <div class="graph_data" id="turin_type"></div>
-        </div>
+
         <div class="wrapper_map" id="map_container">
             <svg width="100%" height="100%" viewBox="0 0 1166 1120" preserveAspectRatio="none">
                 <defs>
@@ -22,8 +22,8 @@
                       <feComposite in="SourceGraphic"/> <!-- operator="or"   -->
                     </filter>
                     <linearGradient id="legenda" x1="50%" y1="0%" x2="50%" y2="100%" > 
-                        <stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                        <stop offset="0%" style="stop-color:rgb(255,10,0);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(255,246,0);stop-opacity:1" />
                     </linearGradient> 
                   </defs>
     
@@ -126,7 +126,7 @@
                     <tspan x="315" y="370">Lucento</tspan></text>
                 <text id="Aurora_t" x="615" y="490" class="text_map">Aurora</text>
                 <text id="Centro_t" x="555" y="600" class="text_map">Centro</text>
-                <text id="Crocetta_t"  x="485" y="695" class="text_map">Crocetta</text>
+                <text id="Crocetta_t"  x="495" y="675" class="text_map">Crocetta</text>
                 <text id="San_Donato_Campidoglio_t" x="425" y="485" class="text_map">San Donato
                     <tspan x="410" y="510">Campidoglio</tspan></text>
                 <text id="Cenisia_Cit_Turin_t" x="410" y="575" class="text_map">Cenisia
@@ -150,9 +150,13 @@
                     <tspan x="265" y="850">Nord</tspan></text>
                 <text id="Mirafiori_Sud_t" x="200" y="1020" class="text_map">Mirafiori Sud </text>
                 
-                <text id="legend_min_t" x="1040" y="790" class="text_legend">max infrazioni </text>
-                <text id="legend_max_t" x="1040" y="1120" class="text_legend">min infrazioni </text>
+                <text id="legend_min_t" x="1040" y="790" class="text_legend">1003 infrazioni </text>
+                <text id="legend_max_t" x="1040" y="1120" class="text_legend">47 infrazioni </text>
             </svg>
+        </div>
+        <div id="wrapper_destra">
+            <div class="graph_data" id="turin_temp"></div>
+            <div class="graph_data" id="turin_type"></div>
         </div>
     </div>
 

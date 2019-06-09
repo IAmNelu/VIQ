@@ -142,7 +142,7 @@ function aggiungiTogliSelected(id_quartiere) {
         if (selected.length < 3) {
             selected.push(id_quartiere);
         } else {
-            alert('Puoi confrontare al massimo tre quartietri per volta.')
+            alert('Puoi confrontare al massimo tre quartieri per volta.')
         }
 
     }

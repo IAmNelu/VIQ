@@ -5,9 +5,9 @@ $(document).ready(function() {
     set_page_event_listeners();
     window.setTimeout("mapColor()", 150);
     window.setTimeout("colorQuartieri()", 155);
-    window.setTimeout("plotTimeSanction('turin_temp')", 155);
+    window.setTimeout("plotTimeSanction('turin_temp',0)", 155);
     window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
-    window.setTimeout("plotTypeSanction('turin_type')", 165);
+    window.setTimeout("plotTypeSanction('turin_type',0)", 165);
     //window.onresize = function() { setta_responsivita(); };
     //setta_responsivita();
 
@@ -59,7 +59,7 @@ function mapColor() {
     for (let i = 0; i < quartieri.length; i++) {
         nome = getIdFromNomeQuartiere(quartieri[i].getNome());
         n_multe = quartieri[i]["numeroInfrazioni"];
-        t = (1530 * n_multe) / n_tot;
+        t = (2108 * n_multe) / n_tot;
         tot = decimalToHex(255 - t);
         colore = "#ff" + tot + "00";
         quartieri[i].setColore(colore);
@@ -228,8 +228,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp');
-            plotTypeSanction('turin_type');
+            plotTimeSanction('turin_temp',0);
+            plotTypeSanction('turin_type',0);
 
             plotDiv.show();
         });
@@ -247,8 +247,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp');
-            plotTypeSanction('turin_type');
+            plotTimeSanction('turin_temp',0);
+            plotTypeSanction('turin_type',0);
             plotDiv.show();
         });
     }

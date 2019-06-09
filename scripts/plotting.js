@@ -1,9 +1,9 @@
-function plotTimeSanction(div) {
+function plotTimeSanction(div,span) {
 
     let months = [];
     let multe = [];
     let j, i, m, nome_s = [],
-        nome_q;
+        nome_q,L;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -11,11 +11,11 @@ function plotTimeSanction(div) {
     }
 
     var trace = [{
-        x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
-        y: [],
-        type: 'scatter',
-        name: "Torino",
-        marker: {color: 'rgb(215, 25, 28)'}},
+            x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
+            y: [],
+            type: 'scatter',
+            name: "Torino",
+            marker: {color: 'rgb(215, 25, 28)'}},
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
@@ -35,31 +35,38 @@ function plotTimeSanction(div) {
             name: "",
             marker: {color: 'rgb(26, 150, 65)'}}];
 
+    if(span===0){
+        L==600;
+    }else{
+        L=span;
+    }
     var layout = {
         margin: {l:50,r:20,t:60,b:50},
-        width: 600,
-        height: 400,
+        width: L,
+        height: 380,
         showlegend: true,
         legend:{y:1, x:0.1,
             orientation:"h",
             yanchor:"bottom"},
-        yaxis: { range: [0, 920],
-            title:"N° Infrazioni"}};
+            yaxis: {title:"N° Infrazioni"}};
 
     //tutta torino
-    for (i = 0; i < quartieri.length; i++) {
-        multe = multe.concat(quartieri[i]["reati"]);
-    }
-    for (m = 0; m < 12; m++) {
-        months[m] = 0;
-    }
 
-    for (i = 0; i < multe.length; i++) {
-        m = multe[i]["Mese Accertamento"] - 1;
-        months[m] += parseInt(multe[i]["Numero Verbali"]);
-    }
-    for (m = 0; m < 12; m++) {
-        trace[0].y.push(months[m]);
+    if(selected.length===0){
+        for (i = 0; i < quartieri.length; i++) {
+            multe = multe.concat(quartieri[i]["reati"]);
+        }
+        for (m = 0; m < 12; m++) {
+            months[m] = 0;
+        }
+
+        for (i = 0; i < multe.length; i++) {
+            m = multe[i]["Mese Accertamento"] - 1;
+            months[m] += parseInt(multe[i]["Numero Verbali"]);
+        }
+        for (m = 0; m < 12; m++) {
+            trace[0].y.push(months[m]);
+        }
     }
 
     // i singoli quartieri
@@ -103,13 +110,13 @@ function plotTimeSanction(div) {
     Plotly.newPlot(div, trace, layout);
 }
 
-function plotTypeSanction(div) {
+function plotTypeSanction(div,span) {
 
     let administrative = 0;
     let tributary = 0;
     let multe = [],
         data = [];
-    let i, j, nome_q, nome_s, tot;
+    let i, j, nome_q, nome_s, tot,L;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -133,35 +140,41 @@ function plotTypeSanction(div) {
         name: "Tributarie",
         marker: { color: 'rgb(215, 25, 28)' }};
 
+    if(span===0){
+        L==600;
+    }else{
+        L=span;
+    }
     var layout = {
-        height: 200,
-        width: 600,
-        margin : {t:20,b:120,r:10,l:40},
+        height: 280,
+        width: L,
+        margin : {t:20,b:100,r:10,l:40},
         barmode: 'stack'};
 
-    //tutta torino
-    for (i = 0; i < quartieri.length; i++) {
-        multe = multe.concat(quartieri[i]["reati"]);
+    if(selected.length===0) {
+        //tutta torino
+        for (i = 0; i < quartieri.length; i++) {
+            multe = multe.concat(quartieri[i]["reati"]);
+        }
+
+        //calcolo
+        for (i = 0; i < multe.length; i++) {
+            if ((multe[i]["Tipo Sanzione"] == "Tributaria"))
+                tributary += parseInt(multe[i]["Numero Verbali"]);
+
+            if ((multe[i]["Tipo Sanzione"] == "Amministrativa"))
+                administrative += parseInt(multe[i]["Numero Verbali"]);
+        }
+
+        tot = tributary + administrative;
+        tributary = (tributary * 100) / tot;
+        administrative = 100 - tributary;
+
+        trace1.x.push("Torino");
+        trace2.x.push("Torino");
+        trace1.y.push(administrative);
+        trace2.y.push(tributary);
     }
-
-    //calcolo
-    for (i = 0; i < multe.length; i++) {
-        if ((multe[i]["Tipo Sanzione"] == "Tributaria"))
-            tributary += parseInt(multe[i]["Numero Verbali"]);
-
-        if ((multe[i]["Tipo Sanzione"] == "Amministrativa"))
-            administrative += parseInt(multe[i]["Numero Verbali"]);
-    }
-
-    tot = tributary + administrative;
-    tributary = (tributary * 100) / tot;
-    administrative = 100 - tributary;
-
-    trace1.x.push("Torino");
-    trace2.x.push("Torino");
-    trace1.y.push(administrative);
-    trace2.y.push(tributary);
-
     for (j = 0; j < selected.length; j++) {
         multe = [];
         nome_q = "";

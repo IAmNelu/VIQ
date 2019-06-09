@@ -4,53 +4,36 @@ let selected = [];
 
 $(document).ready(function() {
     set_page_event_listeners();
-    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    if (width > 800) {
-        width = width * 45 / 100;
-    } else {
-        width = width - 50;
-    }
+
     window.setTimeout("mapColor()", 150);
     window.setTimeout("colorQuartieri()", 155);
-    window.setTimeout(function() { plotTimeSanction('turin_temp', width,0); }, 155);
-    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri',0,0); }, 160);
-    window.setTimeout(function() { plotTypeSanction('turin_type', width,0); }, 165);
+    setta_responsivita();
 
     window.onresize = function() {
-        let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-        if (width > 800) {
-            width = width * 45 / 100;
-        } else {
-            width = width - 50;
-        }
-        let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-        if (height > 800) {
-            height = height * 45 / 100;
-        } else {
-            height = height - 50;
-        }
-        window.setTimeout(function() { plotTimeSanction('turin_temp', width,height); }, 155);
-        window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri',width,height); }, 160);
-        window.setTimeout(function() { plotTypeSanction('turin_type', width,height); }, 165);
+        setta_responsivita();
     };
-    //setta_responsivita();
 
 });
 
-// TO EDIT A LOT
+
 function setta_responsivita() {
     let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    console.log(width);
-    let capo = document.querySelector("#top_part");
-    let svg_l = document.querySelector("#map_container");
-    let graphs_dx_l = document.querySelector("#wrapper_destra");
-    if (width <= 800) {
-        capo.appendChild(graphs_dx_l);
+    let h_map = ($('#map_container')[0].clientHeight + 200) / 2;
+    let width_g = 0;
+    if (width > 800) {
+        width_g = width * 45 / 100;
     } else {
-        capo.appendChild(svg_l);
+        width_g = width - 50;
     }
-    document.getElementById("top_part").contentWindow.location.reload(true);
-    set_page_event_listeners();
+    let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+    if (height > 800) {
+        height = height * 45 / 100;
+    } else {
+        height = height - 50;
+    }
+    window.setTimeout(function() { plotTimeSanction('turin_temp', width_g, h_map); }, 155);
+    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri', width - 50, height); }, 160);
+    window.setTimeout(function() { plotTypeSanction('turin_type', width_g, h_map); }, 165);
 }
 
 function sparisciQuartiere(caller) {
@@ -252,8 +235,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0,0);
-            plotTypeSanction('turin_type', 0,0);
+            plotTimeSanction('turin_temp', 0, 0);
+            plotTypeSanction('turin_type', 0, 0);
 
             plotDiv.show();
         });
@@ -271,8 +254,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0,0);
-            plotTypeSanction('turin_type', 0,0);
+            plotTimeSanction('turin_temp', 0, 0);
+            plotTypeSanction('turin_type', 0, 0);
             plotDiv.show();
         });
     }

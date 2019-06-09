@@ -153,7 +153,7 @@ function set_page_event_listeners() {
             let idText = '#' + idQuartiere + '_t';
             let text = $(idText);
             svg.appendChild(text[0]);
-            $(polys[i]).css("fill", "yellow");
+            $(polys[i]).css("fill", "lightblue");
             $(polys[i]).css("stroke-width", "10px");
             $(texts[i]).css("font-size", "22pt");
         });
@@ -183,7 +183,7 @@ function set_page_event_listeners() {
                 if (idQuartiere === $(polys[i]).attr('id')) {
                     $(polys[i]).css("stroke-width", "10px");
                     $(polys[i]).css("stroke", "beige");
-                    $(polys[i]).css("fill", "yellow");
+                    $(polys[i]).css("fill", "lightblue");
                     $(texts[i]).css("font-size", "22pt");
                     break;
                 }

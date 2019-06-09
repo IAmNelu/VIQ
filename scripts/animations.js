@@ -12,9 +12,9 @@ $(document).ready(function() {
     }
     window.setTimeout("mapColor()", 150);
     window.setTimeout("colorQuartieri()", 155);
-    window.setTimeout(function() { plotTimeSanction('turin_temp', width); }, 155);
-    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri'); }, 160);
-    window.setTimeout(function() { plotTypeSanction('turin_type', width); }, 165);
+    window.setTimeout(function() { plotTimeSanction('turin_temp', width,0); }, 155);
+    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri',0,0); }, 160);
+    window.setTimeout(function() { plotTypeSanction('turin_type', width,0); }, 165);
 
     window.onresize = function() {
         let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -23,9 +23,15 @@ $(document).ready(function() {
         } else {
             width = width - 50;
         }
-        window.setTimeout(function() { plotTimeSanction('turin_temp', width); }, 155);
-        window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri'); }, 160);
-        window.setTimeout(function() { plotTypeSanction('turin_type', width); }, 165);
+        let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+        if (height > 800) {
+            height = height * 45 / 100;
+        } else {
+            height = height - 50;
+        }
+        window.setTimeout(function() { plotTimeSanction('turin_temp', width,height); }, 155);
+        window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri',width,height); }, 160);
+        window.setTimeout(function() { plotTypeSanction('turin_type', width,height); }, 165);
     };
     //setta_responsivita();
 
@@ -246,8 +252,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0);
-            plotTypeSanction('turin_type', 0);
+            plotTimeSanction('turin_temp', 0,0);
+            plotTypeSanction('turin_type', 0,0);
 
             plotDiv.show();
         });
@@ -265,8 +271,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0);
-            plotTypeSanction('turin_type', 0);
+            plotTimeSanction('turin_temp', 0,0);
+            plotTypeSanction('turin_type', 0,0);
             plotDiv.show();
         });
     }

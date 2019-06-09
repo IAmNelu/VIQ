@@ -1,9 +1,9 @@
-function plotTimeSanction(div,span) {
+function plotTimeSanction(div,span,rise) {
 
     let months = [];
     let multe = [];
     let j, i, m, nome_s = [],
-        nome_q,L;
+        nome_q,L,H=-1;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -36,14 +36,21 @@ function plotTimeSanction(div,span) {
             marker: {color: 'rgb(26, 150, 65)'}}];
 
     if(span===0){
-        L==600;
+        L=600;
     }else{
         L=span;
     }
+
+    if(rise===0){
+        H=400;
+    }else{
+        H=rise;
+    }
+
     var layout = {
         margin: {l:50,r:20,t:60,b:50},
         width: L,
-        height: 380,
+        height: H,
         showlegend: true,
         legend:{y:1, x:0.1,
             orientation:"h",
@@ -110,13 +117,13 @@ function plotTimeSanction(div,span) {
     Plotly.newPlot(div, trace, layout);
 }
 
-function plotTypeSanction(div,span) {
+function plotTypeSanction(div,span,rise) {
 
     let administrative = 0;
     let tributary = 0;
     let multe = [],
         data = [];
-    let i, j, nome_q, nome_s, tot,L;
+    let i, j, nome_q, nome_s, tot,L,H;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -141,12 +148,18 @@ function plotTypeSanction(div,span) {
         marker: { color: 'rgb(215, 25, 28)' }};
 
     if(span===0){
-        L==600;
+        L=600;
     }else{
         L=span;
     }
+
+    if(rise===0){
+        H=280;
+    }else{
+        H=rise;
+    }
     var layout = {
-        height: 280,
+        height: H,
         width: L,
         margin : {t:20,b:100,r:10,l:40},
         barmode: 'stack'};
@@ -219,11 +232,11 @@ function plotTypeSanction(div,span) {
     Plotly.newPlot(div, data, layout);
 }
 
-function plotNeighborhoodSanction(div) {
+function plotNeighborhoodSanction(div,span,rise) {
 
     var nbh = [],
         number = [],
-        j, i, temp,tot=0;
+        j, i, temp,tot=0,L,H;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -244,10 +257,23 @@ function plotNeighborhoodSanction(div) {
         name: "Media",
         marker: { color:'rgb(215, 25, 28)'}};
 
+    if(span===0){
+        L=1400;
+    }else{
+        L=span;
+    }
+
+    if(rise===0){
+        H=400;
+    }else{
+        H=rise;
+    }
     var layout = { bargap: 0.05,
+        height: H,
+        width: L,
         yaxis: { range: [0, 1005],
             title:"N° Infrazioni"},
-        legend:{y:0.43,x:0.9 }};
+        legend:{y:0.45,x:0.9 }};
 
     for (i = 0; i < quartieri.length; i++) {
         nbh[i] = quartieri[i].getNome();

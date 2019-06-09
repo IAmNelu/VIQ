@@ -1,14 +1,32 @@
 let polys = [];
 let texts = [];
 let selected = [];
+
 $(document).ready(function() {
     set_page_event_listeners();
+    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    if (width > 800) {
+        width = width * 45 / 100;
+    } else {
+        width = width - 50;
+    }
     window.setTimeout("mapColor()", 150);
     window.setTimeout("colorQuartieri()", 155);
-    window.setTimeout("plotTimeSanction('turin_temp',0)", 155);
-    window.setTimeout("plotNeighborhoodSanction('turin_quartieri')", 160);
-    window.setTimeout("plotTypeSanction('turin_type',0)", 165);
-    //window.onresize = function() { setta_responsivita(); };
+    window.setTimeout(function() { plotTimeSanction('turin_temp', width); }, 155);
+    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri'); }, 160);
+    window.setTimeout(function() { plotTypeSanction('turin_type', width); }, 165);
+
+    window.onresize = function() {
+        let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if (width > 800) {
+            width = width * 45 / 100;
+        } else {
+            width = width - 50;
+        }
+        window.setTimeout(function() { plotTimeSanction('turin_temp', width); }, 155);
+        window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri'); }, 160);
+        window.setTimeout(function() { plotTypeSanction('turin_type', width); }, 165);
+    };
     //setta_responsivita();
 
 });
@@ -228,8 +246,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp',0);
-            plotTypeSanction('turin_type',0);
+            plotTimeSanction('turin_temp', 0);
+            plotTypeSanction('turin_type', 0);
 
             plotDiv.show();
         });
@@ -247,8 +265,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp',0);
-            plotTypeSanction('turin_type',0);
+            plotTimeSanction('turin_temp', 0);
+            plotTypeSanction('turin_type', 0);
             plotDiv.show();
         });
     }

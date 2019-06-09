@@ -57,13 +57,13 @@ h1 {
 
 @media only screen and (min-width: 800px) {
     #map_container {
-        width: 42%;
-        height: auto;
+        width: 45%;
+        height: 45%;
         margin-left: 2%;
     }
     #wrapper_destra {
         height: auto;
-        width: 45%;
+        width: 42%;
         margin-right: 5%;
     }
     #info {

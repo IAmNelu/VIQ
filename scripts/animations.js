@@ -134,7 +134,7 @@ function aggiungiTogliSelected(id_quartiere) {
         if (selected.length < 3) {
             selected.push(id_quartiere);
         } else {
-            alert('You can confrontare massimo three quartieri')
+            alert('Puoi confrontare al massimo tre quartietri per volta.')
         }
 
     }

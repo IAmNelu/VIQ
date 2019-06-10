@@ -27,7 +27,7 @@ function getLayoutValues() {
     let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
     let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
     let h_map = $('#map_container')[0].clientHeight;
-    let height_g = (h_map + 200) / 2;
+    let height_g = (h_map + 100) / 2;
     let width_g = 0;
     if (window.matchMedia("(orientation: portrait)").matches) {
         width_g = width - 50;
@@ -256,7 +256,7 @@ function set_page_event_listeners() {
             for (let i = 0; i < texts.length; i++) {
                 if (idText === $(texts[i]).attr('id')) {
                     $(texts[i]).css("font-size", "22pt");
-                    $(texts[i]).css("fill", "#03F500");
+                    $(texts[i]).css("fill", "#ffffff");
                     $(texts[i]).css("text-shadow", " -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black");
                     break;
                 }
@@ -279,7 +279,7 @@ function set_page_event_listeners() {
             let lun = idText.length;
             let idQuartiere = idText.substr(0, lun - 2);
             $(texts[i]).css("font-size", "22pt");
-            $(texts[i]).css("fill", "#03F500");
+            $(texts[i]).css("fill", "#ffffff");
             $(texts[i]).css("text-shadow", " -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black");
             let plotDiv = $('#district_graph');
             let polyid = this.id.substring(0, this.id.length - 2);

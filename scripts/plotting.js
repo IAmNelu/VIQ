@@ -272,6 +272,7 @@ function plotNeighborhoodSanction(div,span,rise) {
     var layout = { bargap: 0.05,
         height: H,
         width: L,
+        title: "Graduatoria Quartieri",
         yaxis: { range: [0, 1005],
             title:"N° Infrazioni"},
         legend:{y:0.45,x:0.9 }};

@@ -59,30 +59,6 @@ function getLayoutValues() {
 
 
 function setta_responsivita() {
-    // let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    // let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-    // let h_map = $('#map_container')[0].clientHeight;
-    // let height_g = (h_map + 200) / 2;
-    // let width_g = 0;
-    // if (window.matchMedia("(orientation: portrait)").matches) {
-    //     width_g = width - 50;
-    //     height_g = height / 3;
-    // }
-
-    // if (window.matchMedia("(orientation: landscape)").matches) {
-    //     if (width > 800) {
-    //         width_g = width * 45 / 100;
-    //     } else {
-    //         width_g = width - 50;
-    //     }
-    // }
-
-
-    // if (height > 800) {
-    //     height = height * 45 / 100;
-    // } else {
-    //     height = height - 50;
-    // }
 
     let values = getLayoutValues();
 

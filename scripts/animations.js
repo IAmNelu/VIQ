@@ -10,30 +10,85 @@ $(document).ready(function() {
     setta_responsivita();
 
     window.onresize = function() {
-        setta_responsivita();
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            setta_responsivita();
+        }
     };
 
 });
 
-
-function setta_responsivita() {
+function getLayoutValues() {
+    let valori = {
+        width_g: 0,
+        height_g: 0,
+        width_all: 0,
+        height_all: 0
+    };
     let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    let h_map = ($('#map_container')[0].clientHeight + 200) / 2;
-    let width_g = 0;
-    if (width > 800) {
-        width_g = width * 45 / 100;
-    } else {
-        width_g = width - 50;
-    }
     let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+    let h_map = $('#map_container')[0].clientHeight;
+    let height_g = (h_map + 200) / 2;
+    let width_g = 0;
+    if (window.matchMedia("(orientation: portrait)").matches) {
+        width_g = width - 50;
+        height_g = height / 3;
+    }
+
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        if (width > 800) {
+            width_g = width * 45 / 100;
+        } else {
+            width_g = width - 50;
+        }
+    }
+
     if (height > 800) {
         height = height * 45 / 100;
     } else {
         height = height - 50;
     }
-    window.setTimeout(function() { plotTimeSanction('turin_temp', width_g, h_map); }, 155);
-    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri', width - 50, height); }, 160);
-    window.setTimeout(function() { plotTypeSanction('turin_type', width_g, h_map); }, 165);
+
+    valori['width_g'] = width_g;
+    valori['height_g'] = height_g;
+    valori['width_all'] = width - 100;
+    valori['height_all'] = height;
+
+    return valori;
+
+}
+
+
+function setta_responsivita() {
+    // let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    // let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
+    // let h_map = $('#map_container')[0].clientHeight;
+    // let height_g = (h_map + 200) / 2;
+    // let width_g = 0;
+    // if (window.matchMedia("(orientation: portrait)").matches) {
+    //     width_g = width - 50;
+    //     height_g = height / 3;
+    // }
+
+    // if (window.matchMedia("(orientation: landscape)").matches) {
+    //     if (width > 800) {
+    //         width_g = width * 45 / 100;
+    //     } else {
+    //         width_g = width - 50;
+    //     }
+    // }
+
+
+    // if (height > 800) {
+    //     height = height * 45 / 100;
+    // } else {
+    //     height = height - 50;
+    // }
+
+    let values = getLayoutValues();
+
+    window.setTimeout(function() { plotTimeSanction('turin_temp', values['width_g'], values['height_g']); }, 155);
+    window.setTimeout(function() { plotTypeSanction('turin_type', values['width_g'], values['height_g']); }, 160);
+    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri', values['width_all'], values['height_all']); }, 160);
 }
 
 function sparisciQuartiere(caller) {
@@ -219,6 +274,7 @@ function set_page_event_listeners() {
         });
         ///////////////////////////////////
         $(polys[i]).click(function() {
+            let values = getLayoutValues();
             let idQuartiere = $(polys[i]).attr('id');
             let idText = idQuartiere + '_t';
             for (let i = 0; i < texts.length; i++) {
@@ -235,12 +291,13 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0, 0);
-            plotTypeSanction('turin_type', 0, 0);
+            plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
+            plotTypeSanction('turin_type', values['width_g'], values['height_g']);
 
             plotDiv.show();
         });
         $(texts[i]).click(function() {
+            let values = getLayoutValues();
             let idText = $(texts[i]).attr('id');
             let lun = idText.length;
             let idQuartiere = idText.substr(0, lun - 2);
@@ -254,8 +311,8 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            plotTimeSanction('turin_temp', 0, 0);
-            plotTypeSanction('turin_type', 0, 0);
+            plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
+            plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();
         });
     }

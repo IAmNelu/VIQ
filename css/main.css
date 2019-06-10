@@ -77,3 +77,29 @@ h1 {
         flex-direction: row;
     }
 }
+
+@media only screen and (orientation: portrait) {
+    #wrapper_destra {
+        width: 90%;
+        margin-right: 5%;
+        height: auto;
+    }
+    #info {
+        margin: auto;
+        width: 90%;
+        font-size: 14pt;
+    }
+    #top_part {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #map_container {
+        width: 100%;
+        height: auto;
+        margin: auto;
+    }
+    #turin_temp {
+        /* margin-left: -45%; */
+    }
+}

@@ -61,7 +61,7 @@ function getLayoutValues() {
 function setta_responsivita() {
 
     let values = getLayoutValues();
-
+    console.log(values);
     window.setTimeout(function() { plotTimeSanction('turin_temp', values['width_g'], values['height_g']); }, 155);
     window.setTimeout(function() { plotTypeSanction('turin_type', values['width_g'], values['height_g']); }, 160);
     window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri', values['width_all'], values['height_all']); }, 160);
@@ -250,7 +250,7 @@ function set_page_event_listeners() {
         });
         ///////////////////////////////////
         $(polys[i]).click(function() {
-            let values = getLayoutValues();
+
             let idQuartiere = $(polys[i]).attr('id');
             let idText = idQuartiere + '_t';
             for (let i = 0; i < texts.length; i++) {
@@ -267,9 +267,10 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
+            let values = getLayoutValues();
+            console.log(values);
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
-
             plotDiv.show();
         });
         $(texts[i]).click(function() {

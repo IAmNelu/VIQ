@@ -14,7 +14,6 @@ $(document).ready(function() {
 
 });
 
-
 function isIn(quartiere_s) {
     for (let i = 0; i < selected.length; i++) {
         if (selected[i] === quartiere_s) {

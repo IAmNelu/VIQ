@@ -92,20 +92,10 @@ function plotTimeSanction(div, span, rise) {
         for (m = 0; m < 12; m++) {
             months[m] = 0;
         }
-        nome_q = "";
-        nome_s = selected[j].split("_");
 
-        if (nome_s.length == 1) {
-            nome_q = nome_s[0];
-        }
-        if (nome_s.length == 2) {
-            nome_q = nome_s[0] + " " + nome_s[1];
-        }
-        if (nome_s.length == 3) {
-            nome_q = nome_s[0] + " " + nome_s[1] + " " + nome_s[2];
-        }
-
+        nome_q=getNomeQuartierfromId(selected[j]);
         multe = [];
+
         for (i = 0; i < quartieri.length; i++) {
             if (quartieri[i].getNome() === nome_q) {
                 multe = multe.concat(quartieri[i]["reati"]);
@@ -202,21 +192,10 @@ function plotTypeSanction(div, span, rise) {
         trace2.y.push(tributary);
     }
     for (j = 0; j < selected.length; j++) {
-        multe = [];
-        nome_q = "";
-        nome_s = selected[j].split("_");
 
-        if (nome_s.length == 1) {
-            nome_q = nome_s[0];
-        }
-        if (nome_s.length == 2) {
-            nome_q = nome_s[0] + " " + nome_s[1];
-        }
-        if (nome_s.length == 3) {
-            nome_q = nome_s[0] + " " + nome_s[1] + " " + nome_s[2];
-        }
-
+        nome_q=getNomeQuartierfromId(selected[j]);
         multe = [];
+
         for (let i = 0; i < quartieri.length; i++) {
             if (quartieri[i].getNome() == nome_q) {
                 multe = multe.concat(quartieri[i]["reati"]);
@@ -291,7 +270,7 @@ function plotNeighborhoodSanction(div, span, rise) {
         width: L,
         title: "Graduatoria Quartieri",
         yaxis: {
-            range: [0, 2005],
+            range: [0, 1005],
             title: "N° Infrazioni"
         },
         legend: { y: 0.45, x: 0.9 }
@@ -302,7 +281,9 @@ function plotNeighborhoodSanction(div, span, rise) {
         number[i] = quartieri[i].getNumberInfrazioni();
         tot += number[i];
     }
-    tot = tot / nbh.length;
+    tot = tot / nbh.length;  //media
+
+    //ordinamento
     for (i = 0; i < nbh.length; i++) {
         for (j = 0; j < nbh.length - 1; j++) {
             if (number[i] > number[j]) {

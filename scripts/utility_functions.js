@@ -94,3 +94,20 @@ function getLayoutValues() {
     return valori;
 
 }
+
+function getNomeQuartierfromId(id){
+
+    let nome_s,nome_q;
+    nome_s = id.split("_");
+
+    if (nome_s.length == 1) {
+        nome_q = nome_s[0];
+    }
+    if (nome_s.length == 2) {
+        nome_q = nome_s[0] + " " + nome_s[1];
+    }
+    if (nome_s.length == 3) {
+        nome_q = nome_s[0] + " " + nome_s[1] + " " + nome_s[2];
+    }
+    return nome_q;
+}

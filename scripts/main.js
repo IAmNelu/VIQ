@@ -12,7 +12,7 @@ function readQuartieri() {
 
 function putData(json) {
     let data = JSON.parse(json);
-
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
         let CAPfile = data[i]["CAP"];
         for (let j = 0; j < quartieri.length; j++) {
@@ -97,7 +97,8 @@ function colorQuartieri() {
 
 
 function mapColor() {
-    let colore, t, n_multe, n_tot = 0,
+
+    let colore,nome, t, n_multe, n_tot = 0,
         tot = 0;
     for (let i = 0; i < quartieri.length; i++) {
         n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
@@ -117,7 +118,6 @@ function mapColor() {
 
 function setta_responsivita() {
     let values = getLayoutValues();
-    console.log(values);
 
     plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
     plotTypeSanction('turin_type', values['width_g'], values['height_g']);
@@ -159,6 +159,5 @@ quartieri = [
 //////////////////////////////////////////////
 
 setCAPs();
-readQuartieri();
 
 /////////////////////////////////////////////

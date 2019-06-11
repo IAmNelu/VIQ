@@ -3,11 +3,8 @@ let texts = [];
 let selected = [];
 
 $(document).ready(function() {
-    set_page_event_listeners();
 
-    window.setTimeout("mapColor()", 150);
-    window.setTimeout("colorQuartieri()", 155);
-    setta_responsivita();
+    set_page_event_listeners();
 
     window.onresize = function() {
         if (window.matchMedia("(orientation: landscape)").matches) {
@@ -17,138 +14,6 @@ $(document).ready(function() {
 
 });
 
-function getLayoutValues() {
-    let valori = {
-        width_g: 0,
-        height_g: 0,
-        width_all: 0,
-        height_all: 0
-    };
-    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-    let height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
-    let h_map = $('#map_container')[0].clientHeight;
-    let height_g = (h_map + 100) / 2;
-    let width_g = 0;
-    if (window.matchMedia("(orientation: portrait)").matches) {
-        width_g = width - 50;
-        height_g = height / 3;
-    }
-
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        if (width > 800) {
-            width_g = width * 45 / 100;
-        } else {
-            width_g = width - 50;
-        }
-    }
-
-    if (height > 800) {
-        height = height * 45 / 100;
-    } else {
-        height = height - 50;
-    }
-
-    valori['width_g'] = width_g;
-    valori['height_g'] = height_g;
-    valori['width_all'] = width - 100;
-    valori['height_all'] = height;
-
-    return valori;
-
-}
-
-
-function setta_responsivita() {
-
-    let values = getLayoutValues();
-    console.log(values);
-    window.setTimeout(function() { plotTimeSanction('turin_temp', values['width_g'], values['height_g']); }, 155);
-    window.setTimeout(function() { plotTypeSanction('turin_type', values['width_g'], values['height_g']); }, 160);
-    window.setTimeout(function() { plotNeighborhoodSanction('turin_quartieri', values['width_all'], values['height_all']); }, 160);
-}
-
-function sparisciQuartiere(caller) {
-
-    let in_polys = $("polygon");
-    let in_texts = $("text");
-    let clicked_id = $(caller).attr('id');
-    for (let i = 0; i < in_polys.length; i++) {
-        let temp_id = $(in_polys[i]).attr('id');
-        if (temp_id !== clicked_id) {
-            $(in_polys[i]).fadeToggle();
-            $(in_texts[i]).fadeToggle();
-        }
-    }
-}
-
-function adjustSize() {
-    let per_width = '40%';
-    let margin_left = '5%';
-    $("#map_container").css('width', per_width);
-    $("#map_container").css('margin-left', margin_left);
-}
-
-function mapColor() {
-    let colore, t, n_multe, n_tot = 0,
-        tot = 0;
-    for (let i = 0; i < quartieri.length; i++) {
-        n_tot = n_tot + quartieri[i]["numeroInfrazioni"];
-    }
-    for (let i = 0; i < quartieri.length; i++) {
-        nome = getIdFromNomeQuartiere(quartieri[i].getNome());
-        n_multe = quartieri[i]["numeroInfrazioni"];
-        t = (2108 * n_multe) / n_tot;
-        tot = decimalToHex(255 - t);
-        colore = "#ff" + tot + "00";
-        quartieri[i].setColore(colore);
-    }
-
-}
-
-function decimalToHex(decimal) {
-    var hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
-    var conv = "",
-        r1, r2, ris;
-    decimal = Math.floor(decimal);
-    if (decimal < 16) {
-        conv = "0" + hex[decimal];
-    } else {
-        r1 = Math.floor(decimal % 16);
-        ris = Math.floor(decimal / 16);
-        r2 = Math.floor(ris % 16);
-        conv = hex[r2] + hex[r1];
-    }
-
-    return conv;
-}
-
-function getIdFromNomeQuartiere(nome) {
-    let nome_s = nome.split(" ");
-    let nome_r;
-    if (nome_s.length == 1) {
-        nome_r = nome_s;
-    }
-    if (nome_s.length == 2) {
-        nome_r = nome_s[0] + "_" + nome_s[1];
-    }
-    if (nome_s.length == 3) {
-        nome_r = nome_s[0] + "_" + nome_s[1] + "_" + nome_s[2];
-    }
-
-    return nome_r;
-}
-
-function colorQuartieri() {
-    let poligono;
-    let nome;
-    let colore;
-    for (let i = 0; i < quartieri.length; i++) {
-        nome = getIdFromNomeQuartiere(quartieri[i].getNome());
-        poligono = document.getElementById(nome);
-        colore = quartieri[i].getColore();
-        $(poligono).css('fill', colore);
-    }
-}
 
 function isIn(quartiere_s) {
     for (let i = 0; i < selected.length; i++) {
@@ -177,7 +42,6 @@ function aggiungiTogliSelected(id_quartiere) {
         }
 
     }
-    console.log(selected);
 }
 
 function set_page_event_listeners() {
@@ -250,7 +114,7 @@ function set_page_event_listeners() {
         });
         ///////////////////////////////////
         $(polys[i]).click(function() {
-
+            let values = getLayoutValues();
             let idQuartiere = $(polys[i]).attr('id');
             let idText = idQuartiere + '_t';
             for (let i = 0; i < texts.length; i++) {
@@ -267,8 +131,7 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-            let values = getLayoutValues();
-            console.log(values);
+
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();

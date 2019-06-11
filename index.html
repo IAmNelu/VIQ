@@ -7,7 +7,7 @@
     <title>Infrazioni Torino</title>
 </head>
 
-<body onload="readAsync()">
+<body onload="readQuartieri()">
     <h1 class="titolo">Infrazioni Torino</h1>
     <div id="info">Per poter confrontare più quartieri contemporaneamente cliccare sopra i quartieri desiderati: è possibile confrontare un massimo di tre quartieri per volta. Per deselezionare un quartiere ed escluderlo dalla rappresentazione basterà cliccarci nuovamente
         sopra. Scorrere la pagina per vedere il numero di infrazioni per ogni singolo quartiere.
@@ -169,10 +169,13 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/quartieri.js"></script>
-    <script src="./scripts/animations.js"></script>
+    <script src="./scripts/utility_functions.js"></script>
     <script src="./scripts/plotting.js"></script>
+    <script src="./scripts/quartieri.js"></script>
+    <script src="./scripts/main.js"></script>
+
+    <script src="./scripts/animations.js"></script>
+
 
 </body>
 

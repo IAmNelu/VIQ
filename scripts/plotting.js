@@ -1,9 +1,9 @@
-function plotTimeSanction(div,span,rise) {
+function plotTimeSanction(div, span, rise) {
 
     let months = [];
     let multe = [];
     let j, i, m, nome_s = [],
-        nome_q,L,H=-1;
+        nome_q, L, H = -1;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -15,51 +15,60 @@ function plotTimeSanction(div,span,rise) {
             y: [],
             type: 'scatter',
             name: "Torino",
-            marker: {color: 'rgb(215, 25, 28)'}},
+            marker: { color: 'rgb(215, 25, 28)' }
+        },
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
             name: "",
-            marker: {color: 'rgb(253, 174, 97)'}},
+            marker: { color: 'rgb(253, 174, 97)' }
+        },
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
             name: "",
-            marker: {color: 'rgb(166, 217, 106)'}},
+            marker: { color: 'rgb(166, 217, 106)' }
+        },
         {
             x: ['Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno', 'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre'],
             y: [],
             type: 'scatter',
             name: "",
-            marker: {color: 'rgb(26, 150, 65)'}}];
+            marker: { color: 'rgb(26, 150, 65)' }
+        }
+    ];
 
-    if(span===0){
-        L=600;
-    }else{
-        L=span;
+    if (span === 0) {
+        L = 600;
+    } else {
+        L = span;
     }
 
-    if(rise===0){
-        H=400;
-    }else{
-        H=rise;
+    if (rise === 0) {
+        H = 400;
+    } else {
+        H = rise;
     }
 
     var layout = {
-        margin: {l:50,r:20,t:60,b:50},
+        margin: { l: 50, r: 20, t: 60, b: 50 },
         width: L,
         height: H,
         showlegend: true,
-        legend:{y:1, x:0.1,
-            orientation:"h",
-            yanchor:"bottom"},
-            yaxis: {title:"N° Infrazioni"}};
+        legend: {
+            y: 1,
+            x: 0.1,
+            orientation: "h",
+            yanchor: "bottom"
+        },
+        yaxis: { title: "N° Infrazioni" }
+    };
 
     //tutta torino
 
-    if(selected.length===0){
+    if (selected.length === 0) {
         for (i = 0; i < quartieri.length; i++) {
             multe = multe.concat(quartieri[i]["reati"]);
         }
@@ -117,13 +126,13 @@ function plotTimeSanction(div,span,rise) {
     Plotly.newPlot(div, trace, layout);
 }
 
-function plotTypeSanction(div,span,rise) {
+function plotTypeSanction(div, span, rise) {
 
     let administrative = 0;
     let tributary = 0;
     let multe = [],
         data = [];
-    let i, j, nome_q, nome_s, tot,L,H;
+    let i, j, nome_q, nome_s, tot, L, H;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -138,7 +147,8 @@ function plotTypeSanction(div,span,rise) {
         y: [],
         type: 'bar',
         name: "Amministrative",
-        marker: { color: 'rgb(26, 150, 65)' }};
+        marker: { color: 'rgb(26, 150, 65)' }
+    };
 
 
     var trace2 = {
@@ -146,26 +156,28 @@ function plotTypeSanction(div,span,rise) {
         y: [],
         type: 'bar',
         name: "Tributarie",
-        marker: { color: 'rgb(215, 25, 28)' }};
+        marker: { color: 'rgb(215, 25, 28)' }
+    };
 
-    if(span===0){
-        L=600;
-    }else{
-        L=span;
+    if (span === 0) {
+        L = 600;
+    } else {
+        L = span;
     }
 
-    if(rise===0){
-        H=280;
-    }else{
-        H=rise;
+    if (rise === 0) {
+        H = 280;
+    } else {
+        H = rise;
     }
     var layout = {
         height: H,
         width: L,
-        margin : {t:20,b:100,r:10,l:40},
-        barmode: 'stack'};
+        margin: { t: 20, b: 100, r: 10, l: 40 },
+        barmode: 'stack'
+    };
 
-    if(selected.length===0) {
+    if (selected.length === 0) {
         //tutta torino
         for (i = 0; i < quartieri.length; i++) {
             multe = multe.concat(quartieri[i]["reati"]);
@@ -233,11 +245,12 @@ function plotTypeSanction(div,span,rise) {
     Plotly.newPlot(div, data, layout);
 }
 
-function plotNeighborhoodSanction(div,span,rise) {
+function plotNeighborhoodSanction(div, span, rise) {
 
     var nbh = [],
         number = [],
-        j, i, temp,tot=0,L,H;
+        j, i, temp, tot = 0,
+        L, H;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -250,39 +263,46 @@ function plotNeighborhoodSanction(div,span,rise) {
         type: 'bar',
         name: "Quartieri",
         showlegend: false,
-        marker: { color:'rgb(103, 169, 207)' }};
+        marker: { color: 'rgb(103, 169, 207)' }
+    };
 
-    var trace2={x: [],
+    var trace2 = {
+        x: [],
         y: [],
         type: 'scatter',
         name: "Media",
-        marker: { color:'rgb(215, 25, 28)'}};
+        marker: { color: 'rgb(215, 25, 28)' }
+    };
 
-    if(span===0){
-        L=1400;
-    }else{
-        L=span;
+    if (span === 0) {
+        L = 1400;
+    } else {
+        L = span;
     }
 
-    if(rise===0){
-        H=400;
-    }else{
-        H=rise;
+    if (rise === 0) {
+        H = 400;
+    } else {
+        H = rise;
     }
-    var layout = { bargap: 0.05,
+    var layout = {
+        bargap: 0.05,
         height: H,
         width: L,
         title: "Graduatoria Quartieri",
-        yaxis: { range: [0, 1005],
-            title:"N° Infrazioni"},
-        legend:{y:0.45,x:0.9 }};
+        yaxis: {
+            range: [0, 2005],
+            title: "N° Infrazioni"
+        },
+        legend: { y: 0.45, x: 0.9 }
+    };
 
     for (i = 0; i < quartieri.length; i++) {
         nbh[i] = quartieri[i].getNome();
         number[i] = quartieri[i].getNumberInfrazioni();
-        tot +=number[i];
+        tot += number[i];
     }
-    tot=tot/nbh.length;
+    tot = tot / nbh.length;
     for (i = 0; i < nbh.length; i++) {
         for (j = 0; j < nbh.length - 1; j++) {
             if (number[i] > number[j]) {
@@ -304,6 +324,6 @@ function plotNeighborhoodSanction(div,span,rise) {
         trace.y.push(number[i]);
         trace2.y.push(tot);
     }
-    var data=[trace, trace2];
-    Plotly.newPlot(div,data, layout);
+    var data = [trace, trace2];
+    Plotly.newPlot(div, data, layout);
 }

@@ -1,6 +1,6 @@
 import csv
 
-pathFileVRC = './VRC2017.csv'
+pathFileVRC = './00_f_VRC2017.csv'
 
 with open(pathFileVRC) as fileVRC, open('VRC_min.csv', 'w', newline='') as csv_dest:
     csv_reader = csv.reader(fileVRC, delimiter=';')

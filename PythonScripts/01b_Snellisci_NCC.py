@@ -1,6 +1,6 @@
 import csv
 
-pathFileVRC = './NumeroCivico_CAP_WGS84_.csv'
+pathFileVRC = './00_f_NumeroCivico_CAP_WGS84_.csv'
 
 with open(pathFileVRC) as fileVRC, open('NCC_min.csv', 'w', newline='') as csv_dest:
     csv_reader = csv.reader(fileVRC, delimiter=';')

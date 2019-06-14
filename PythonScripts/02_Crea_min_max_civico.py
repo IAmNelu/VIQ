@@ -2,7 +2,7 @@ import csv
 
 pathFileVRC = './NCC_min.csv'
 
-with open(pathFileVRC) as fileVRC, open('NCC_min_max.csv', 'w', newline='') as csv_dest:
+with open(pathFileVRC) as fileVRC, open('02_rf_NCC_min_max.csv', 'w', newline='') as csv_dest:
     csv_reader = csv.reader(fileVRC, delimiter=';')
     csv_writer = csv.writer(csv_dest, delimiter=';')
     array_oggetti = []
@@ -27,16 +27,18 @@ with open(pathFileVRC) as fileVRC, open('NCC_min_max.csv', 'w', newline='') as c
     data.sort(key=lambda x: int(x['CIVICO']))
     data.sort(key=lambda x: x['VIA'])
     via_processante = data[0]['VIA']
+    cap_corrente = data[0]['CAP']
     civico_min = data[0]['CIVICO']
     civico_corrente = data[0]['CIVICO']
     csv_writer.writerow(['VIA', 'CIVICO MIN', 'CIVICO MAX', 'CAP'])
     written_lines  = 0
     for one_row in data:
-        if via_processante != one_row['VIA']:
-             csv_writer.writerow([via_processante, civico_min, civico_corrente, one_row['CAP']])
+        if via_processante != one_row['VIA'] or cap_corrente != one_row['CAP']:
+             csv_writer.writerow([via_processante, civico_min, civico_corrente, cap_corrente])
              written_lines += 1 
              via_processante = one_row['VIA']
              civico_min = one_row['CIVICO']
+             cap_corrente = one_row['CAP']
         civico_corrente = one_row['CIVICO']
 
     percentage = 100 - written_lines * 100 / line_count

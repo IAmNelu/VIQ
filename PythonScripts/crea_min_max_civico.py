@@ -5,42 +5,41 @@ pathFileVRC = './NCC_min.csv'
 with open(pathFileVRC) as fileVRC, open('NCC_min_max.csv', 'w', newline='') as csv_dest:
     csv_reader = csv.reader(fileVRC, delimiter=';')
     csv_writer = csv.writer(csv_dest, delimiter=';')
-    written_lines = 0
+    array_oggetti = []
+    old_headers = []
+    data = []
     line_count = 0
-    headers = []
-    old_via = ""
-    old_cap = ""
-    current_via = ""
-    min_civ = ""
-    max_civ = ""
-    current_civ = ""
-    current_cap = ""
     for row in csv_reader:
+        single_line_data = {}
         if line_count == 0:
-            csv_writer.writerow([row[0], 'CIVICO MIN', 'CIVICO MAX', row[2]])
+            for element in row:
+                old_headers.append(element)
         else:
-            current_via = row[0]
-            current_civ = row[1].split(' ')[0]
-            current_civ = current_civ.split('/')[0]
-            current_cap = row[2]
-            if current_via == old_via and current_cap == old_cap:
-                if int(current_civ) < int(min_civ):
-                    min_civ = current_civ
-                if int(current_civ) > int(max_civ):
-                    max_civ = current_civ
-            else:
-                if old_via != '':
-                    csv_writer.writerow([old_via, min_civ, max_civ, old_cap])
-                written_lines += 1
-                old_cap = current_cap
-                old_via = current_via
-                min_civ = current_civ
-                max_civ = current_civ
+            for header, value in zip(old_headers, row):
+                if(header == 'CIVICO'):
+                    cose = value.split(" ")
+                    cose2 = cose[0].split("/")
+                    value = cose2[0]                   
 
+                single_line_data[header] = value
+            data.append(single_line_data)
         line_count += 1
+    data.sort(key=lambda x: int(x['CIVICO']))
+    data.sort(key=lambda x: x['VIA'])
+    via_processante = data[0]['VIA']
+    civico_min = data[0]['CIVICO']
+    civico_corrente = data[0]['CIVICO']
+    csv_writer.writerow(['VIA', 'CIVICO MIN', 'CIVICO MAX', 'CAP'])
+    written_lines  = 0
+    for one_row in data:
+        if via_processante != one_row['VIA']:
+             csv_writer.writerow([via_processante, civico_min, civico_corrente, one_row['CAP']])
+             written_lines += 1 
+             via_processante = one_row['VIA']
+             civico_min = one_row['CIVICO']
+        civico_corrente = one_row['CIVICO']
 
-percentage = written_lines * 100 / line_count
-
-print('Fine\tRead lines:' + str(line_count) + '\tWritten lines: ' + str(written_lines)
-      + '\tCompression: ' + str(percentage) + '%')
+    percentage = 100 - written_lines * 100 / line_count
+    print('Fine\tRead lines:' + str(line_count) + '\tWritten lines: ' + str(written_lines)
+       + '\tCompression: ' + str(percentage) + '%')
 

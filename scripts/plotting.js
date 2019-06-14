@@ -2,8 +2,7 @@ function plotTimeSanction(div, span, rise) {
 
     let months = [];
     let multe = [];
-    let j, i, m, nome_s = [],
-        nome_q, L, H = -1;
+    let j, i, m, nome_q, L, H;
 
     if (div === undefined) {
         console.log("manca il div");
@@ -163,7 +162,8 @@ function plotTypeSanction(div, span, rise) {
     var layout = {
         height: H,
         width: L,
-        margin: { t: 20, b: 100, r: 10, l: 40 },
+        title:"Tipologia Infrazioni",
+        margin: { t: 50, b: 90, r: 10, l: 40 },
         barmode: 'stack'
     };
 

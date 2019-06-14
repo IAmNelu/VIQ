@@ -1,8 +1,8 @@
 import csv
 
-pathFileVRC = './NCC_min.csv'
+pathFileNCC = './01b_f_NCC_min.csv'
 
-with open(pathFileVRC) as fileVRC, open('02_rf_NCC_min_max.csv', 'w', newline='') as csv_dest:
+with open(pathFileNCC) as fileVRC, open('02_f_NCC_min_max.csv', 'w', newline='') as csv_dest:
     csv_reader = csv.reader(fileVRC, delimiter=';')
     csv_writer = csv.writer(csv_dest, delimiter=';')
     array_oggetti = []

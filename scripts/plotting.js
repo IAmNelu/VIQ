@@ -240,7 +240,7 @@ function plotNeighborhoodSanction(div, span, rise) {
         x: [],
         y: [],
         type: 'bar',
-        name: "Quartieri",
+        name: "Infrazioni",
         showlegend: false,
         marker: { color: 'rgb(103, 169, 207)' }
     };
@@ -254,7 +254,7 @@ function plotNeighborhoodSanction(div, span, rise) {
     };
 
     if (span === 0) {
-        L = 1400;
+        L = 1500;
     } else {
         L = span;
     }
@@ -267,13 +267,14 @@ function plotNeighborhoodSanction(div, span, rise) {
     var layout = {
         bargap: 0.05,
         height: H,
-        width: L,
+        width: L+70,
         title: "Graduatoria Quartieri",
+        margin: { l: 50, r: 70, t: 60, b: 100 },
         yaxis: {
-            range: [0, 1005],
+            range: [0, 1020],
             title: "N° Infrazioni"
         },
-        legend: { y: 0.45, x: 0.9 }
+        legend: { y: 0.9, x: 0.9 }
     };
 
     for (i = 0; i < quartieri.length; i++) {

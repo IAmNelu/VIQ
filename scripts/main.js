@@ -106,7 +106,7 @@ function mapColor() {
     for (let i = 0; i < quartieri.length; i++) {
         nome = getIdFromNomeQuartiere(quartieri[i].getNome());
         n_multe = quartieri[i]["numeroInfrazioni"];
-        t = (2108 * n_multe) / n_tot;
+        t = (2040 * n_multe) / n_tot;
         tot = decimalToHex(255 - t);
         colore = "#ff" + tot + "00";
         quartieri[i].setColore(colore);

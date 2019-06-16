@@ -92,7 +92,7 @@ function plotTimeSanction(div, span, rise) {
             months[m] = 0;
         }
 
-        nome_q = getNomeQuartierfromId(selected[j]);
+        nome_q=getNomeQuartierfromId(selected[j]);
         multe = [];
 
         for (i = 0; i < quartieri.length; i++) {
@@ -162,7 +162,7 @@ function plotTypeSanction(div, span, rise) {
     var layout = {
         height: H,
         width: L,
-        title: "Tipologia Infrazioni",
+        title:"Tipologia Infrazioni",
         margin: { t: 50, b: 90, r: 10, l: 40 },
         barmode: 'stack'
     };
@@ -193,7 +193,7 @@ function plotTypeSanction(div, span, rise) {
     }
     for (j = 0; j < selected.length; j++) {
 
-        nome_q = getNomeQuartierfromId(selected[j]);
+        nome_q=getNomeQuartierfromId(selected[j]);
         multe = [];
 
         for (let i = 0; i < quartieri.length; i++) {
@@ -267,7 +267,7 @@ function plotNeighborhoodSanction(div, span, rise) {
     var layout = {
         bargap: 0.05,
         height: H,
-        width: L + 70,
+        width: L+70,
         title: "Distribuzione delle Infrazioni",
         margin: { l: 50, r: 70, t: 60, b: 100 },
         yaxis: {
@@ -282,7 +282,7 @@ function plotNeighborhoodSanction(div, span, rise) {
         number[i] = quartieri[i].getNumberInfrazioni();
         tot += number[i];
     }
-    tot = tot / nbh.length; //media
+    tot = tot / nbh.length;  //media
 
     //ordinamento
     for (i = 0; i < nbh.length; i++) {

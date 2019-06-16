@@ -268,7 +268,7 @@ function plotNeighborhoodSanction(div, span, rise) {
         bargap: 0.05,
         height: H,
         width: L+70,
-        title: "Distribuzione della Infrazioni",
+        title: "Distribuzione delle Infrazioni",
         margin: { l: 50, r: 70, t: 60, b: 100 },
         yaxis: {
             range: [0, 1020],

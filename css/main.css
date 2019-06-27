@@ -100,3 +100,18 @@ h1 {
         margin: auto;
     }
 }
+
+.links {
+    padding-left: 1em;
+    padding-top: 1em;
+}
+
+footer {
+    background-color: #f3f3f3;
+    margin-top: 25px;
+    margin-left: -10px;
+    padding-left: 10px;
+    margin-right: -10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}

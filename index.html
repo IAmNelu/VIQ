@@ -8,25 +8,26 @@
 </head>
 
 <body onload="readQuartieri()">
+    <!-- Esegue la funzione readQuartieri() una volta caricato il body, quindi dopo aver linkato gli script alla fine del body-->
+
     <h1 class="titolo">Infrazioni Torino</h1>
     <div id="info">Per poter confrontare più quartieri contemporaneamente cliccare sopra i quartieri desiderati: è possibile confrontare un massimo di tre quartieri per volta. Per deselezionare un quartiere ed escluderlo dalla rappresentazione basterà cliccarci nuovamente
         sopra. Scorrere la pagina per vedere il numero di infrazioni per ogni singolo quartiere.
     </div>
     <div id="top_part">
-
         <div class="wrapper_map" id="map_container">
             <svg width="100%" height="100%" viewBox="0 0 1166 1120" preserveAspectRatio="none">
                 <defs>
                     <filter x="0" y="0" width="1" height="1" id="solid">
                       <feFlood flood-color="rgba(255, 255, 255, 0.5)"/>
                       <feComposite in="SourceGraphic"/> <!-- operator="or"   -->
-                    </filter>
+                    </filter> <!-- Filtro SVG pensato per dare background al testo, alla fine non è stato usato-->
                     <linearGradient id="legenda" x1="50%" y1="0%" x2="50%" y2="100%" > 
                         <stop offset="0%" style="stop-color:rgb(255,10,0);stop-opacity:1" />
                         <stop offset="100%" style="stop-color:rgb(255,254,0);stop-opacity:1" />
-                    </linearGradient> 
+                    </linearGradient> <!-- Gradiente lineare per la colorazione della leggenda-->
                   </defs>
-    
+                <!-- Definizione Poligoni dei quartieri per punti -->
                 <polygon id="Villaretto_Falchera_Rebaudengo" class="quartiere"
                     points="460,143,477,109,461,91,458,79,461,69,459,55,471,51,487,50,499,55,510,61,512,48,499,40,500,27,507,19,517,11,533,22,543,29,556,29,571,30,584,35,595,37,610,45,622,50,631,47,648,50,651,61,666,63,676,56,690,56,694,66,703,74,710,83,746,81,780,71,789,65,795,40,807,32,826,29,841,30,857,30,869,38,866,56,861,73,846,89,833,91,825,115,839,124,851,135,861,124,872,120,898,135,893,143,918,146,936,146,936,166,931,179,946,181,944,196,903,227,883,276,766,317,757,335,730,325,708,361,681,346,654,345,702,274,708,227,677,220,656,204,613,202,590,191,577,163,561,158,544,172,525,178,510,181,492,178,477,166,468,155">
                 </polygon>
@@ -110,11 +111,11 @@
                 <polygon id="Mirafiori_Sud" class="quartiere"
                     points="67,797,237,904,291,873,394,922,349,979,372,991,397,1015,427,1023,439,987,482,1008,488,1032,467,1110,445,1095,427,1101,416,1106,398,1110,387,1102,375,1090,362,1093,350,1092,341,1081,325,1080,315,1080,307,1087,295,1092,279,1097,248,1082,226,1073,203,1080,183,1071,165,1061,150,1053,136,1064,123,1064,124,1044,116,1041,106,1047,96,1040,83,1032,99,1022,109,1005,148,1009,184,923,154,932,139,918,129,917,60,869,49,866,15,823,28,802,51,818">
                 </polygon>
-    
+                <!-- Definizione rettangolo legenda -->
                 <rect id="legenda_r" class="quartiere"
                     x="1000" y="780" width="30" height="350" fill="url(#legenda)">
                 </rect>
-    
+                <!-- Definizione nomi dei quartieri per punti -->
                 <text id="Villaretto_Falchera_Rebaudengo_t" x="540" y="150" class="text_map">Villaretto Falchera Rebaudengo</text><!-- filter="url(#solid)"  aggiungi dentro text tag  -->
                 <text id="Borgo_Vittoria_t" x="585" y="315" class="text_map">Borgo
                     <tspan x="575" y="345">Vittoria</tspan></text>
@@ -155,16 +156,15 @@
                 <text id="legend_max_t" x="1040" y="1120" class="text_legend">42 infrazioni </text>
             </svg>
         </div>
+        <!-- Div per graficare l'andamento temporale e la divisione del tipo di sanzione -->
         <div id="wrapper_destra">
             <div class="graph_data" id="turin_temp"></div>
             <div class="graph_data" id="turin_type"></div>
         </div>
     </div>
-
-
-
+    <!-- Div per graficare la classifica dei quartieri -->
     <div class="graph_data" id="turin_quartieri"></div>
-
+    <!-- Futer con le con le fonti-->
     <footer>
         Dati presi da: <br>
         <div class="links">
@@ -172,21 +172,17 @@
             <br>
             <a href="http://aperto.comune.torino.it/dataset/toponomastica">http://aperto.comune.torino.it/dataset/toponomastica</a>
         </div>
-
-
     </footer>
 
-
+    <!-- CDNs -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Script interni usati -->
     <script src="./scripts/utility_functions.js"></script>
     <script src="./scripts/plotting.js"></script>
     <script src="./scripts/quartieri.js"></script>
     <script src="./scripts/main.js"></script>
-
     <script src="./scripts/animations.js"></script>
-
-
 </body>
 
 </html>

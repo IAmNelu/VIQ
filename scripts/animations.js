@@ -14,6 +14,7 @@ $(document).ready(function() {
 
 });
 
+//Per controllare se un dato quartiere è tra quelli già selezionati (click fatto sopra)
 function isIn(quartiere_s) {
     for (let i = 0; i < selected.length; i++) {
         if (selected[i] === quartiere_s) {
@@ -23,12 +24,14 @@ function isIn(quartiere_s) {
     return false;
 }
 
+// Permette di togliere o aggiungere un quartiere al vettore di quartieri selezionati.
 function aggiungiTogliSelected(id_quartiere) {
     let new_array = [];
     if (isIn(id_quartiere)) {
         while (selected.length > 0) {
             let ele = selected.pop();
             if (ele !== id_quartiere) {
+                // Devo toglierlo solo se è il quartiere cliccato.
                 new_array.push(ele);
             }
         }
@@ -36,13 +39,16 @@ function aggiungiTogliSelected(id_quartiere) {
     } else {
         if (selected.length < 3) {
             selected.push(id_quartiere);
-        } else {
+        }
+        // Alert se seleziono più di 3 quartieri.
+        else {
             alert('Puoi confrontare al massimo tre quartieri per volta.')
         }
 
     }
 }
 
+// Definisco le animazioni sulla mappa di Torino.
 function set_page_event_listeners() {
     polys = $("polygon");
     texts = $(".text_map");
@@ -59,11 +65,13 @@ function set_page_event_listeners() {
             $(polys[i]).css("stroke-width", "10px");
             $(texts[i]).css("font-size", "22pt");
         });
+        /*Mouse leave the polygon*/
         polys[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
             }
             colorQuartieri();
+            //La scritta dei quartieri selezionati rimane uguale
             if (!isIn($(polys[i]).attr('id'))) {
                 $(texts[i]).css("font-size", "14pt");
                 $(texts[i]).css("fill", "black");
@@ -91,6 +99,7 @@ function set_page_event_listeners() {
                 }
             }
         });
+        /*Mouse leave the text*/
         texts[i].addEventListener("mouseleave", function(e) {
             for (let i = 0; i < polys.length; i++) {
                 svg.appendChild(texts[i]);
@@ -101,6 +110,7 @@ function set_page_event_listeners() {
             idQuartiere = idQuartiere.substr(0, lun - 2);
             for (let i = 0; i < polys.length; i++) {
                 if (idQuartiere === $(polys[i]).attr('id')) {
+                    //La scritta dei quartieri selezionati rimane uguale
                     if (!isIn(idQuartiere)) {
                         $(texts[i]).css("font-size", "14pt");
                         $(texts[i]).css("fill", "black");
@@ -112,6 +122,7 @@ function set_page_event_listeners() {
             }
         });
         ///////////////////////////////////
+        /* Click sui poligoni */
         $(polys[i]).click(function() {
             let values = getLayoutValues();
             let idQuartiere = $(polys[i]).attr('id');
@@ -130,11 +141,12 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-
+// Chiamo funzioni di Plotting.
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();
         });
+        /* Click sui testi */
         $(texts[i]).click(function() {
             let values = getLayoutValues();
             let idText = $(texts[i]).attr('id');
@@ -150,6 +162,7 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
+// Chiamo funzioni di Plotting.
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();

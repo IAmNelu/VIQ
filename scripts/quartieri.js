@@ -1,3 +1,4 @@
+// Definizione della classe Quartiere.
 class Quartiere {
     constructor(nome) {
         this.nome = nome;
@@ -12,7 +13,6 @@ class Quartiere {
     getNumberInfrazioni() { return this.numeroInfrazioni; }
     addCAP(CAP) { this.CAP.push(CAP) }
     addReato(reato) { this.reati.push(reato); }
-    getNumberReati() { return this.reati.length; }
     addInfrazione(reato) { this.numeroInfrazioni += parseInt(reato["Numero Verbali"]); }
     getColore() { return this.colore; }
     setColore(color) { this.colore = color; }

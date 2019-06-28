@@ -12,7 +12,6 @@ function readQuartieri() {
 
 function putData(json) {
     let data = JSON.parse(json);
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
         let CAPfile = data[i]["CAP"];
         for (let j = 0; j < quartieri.length; j++) {

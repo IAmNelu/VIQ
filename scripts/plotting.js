@@ -35,7 +35,7 @@ function plotTimeSanction(div, span, rise) {
             y: [],
             type: 'scatter',
             name: "",
-            marker: { color: 'rgb(26, 150, 65)' }
+            marker: { color: 'rgb(102, 204, 255)' }
         }
     ];
 
@@ -162,8 +162,8 @@ function plotTypeSanction(div, span, rise) {
     var layout = {
         height: H,
         width: L,
-        title:"Tipologia Infrazioni",
-        margin: { t: 50, b: 90, r: 10, l: 40 },
+        title:"Tipologia Infrazioni (valori in %)",
+        margin: { t: 30, b: 90, r: 10, l: 40 },
         barmode: 'stack'
     };
 

@@ -7,6 +7,7 @@ $(document).ready(function() {
     set_page_event_listeners();
 
     window.onresize = function() {
+        //aggiusta valori layout solo su dispositivi non mobile
         if (window.matchMedia("(orientation: landscape)").matches) {
             setta_responsivita();
         }
@@ -141,7 +142,7 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-// Chiamo funzioni di Plotting.
+            // Chiamo funzioni di Plotting.
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();
@@ -162,7 +163,7 @@ function set_page_event_listeners() {
                 $(texts[i]).css("fill", "black");
                 $(texts[i]).css("text-shadow", " none");
             }
-// Chiamo funzioni di Plotting.
+            // Chiamo funzioni di Plotting.
             plotTimeSanction('turin_temp', values['width_g'], values['height_g']);
             plotTypeSanction('turin_type', values['width_g'], values['height_g']);
             plotDiv.show();

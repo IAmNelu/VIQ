@@ -94,7 +94,7 @@ function getLayoutValues() {
     let height_g = (h_map + 100) / 2;
     let width_g = 0;
     // in base all'orientamento del device gli assegna come larghezza la largezza totale - 50 se in mod
-    // portrait, (verticale) o il 45% della largezza massima - 50 se in modalità portrait (orizzontale)
+    // portrait, (verticale) o il 45% della largezza massima - 50 se in modalità landscape (orizzontale)
     //  Se in modalità verticale l'altezza definita in precedenza viene divisa per 3
     if (window.matchMedia("(orientation: portrait)").matches) {
         width_g = width - 50;
